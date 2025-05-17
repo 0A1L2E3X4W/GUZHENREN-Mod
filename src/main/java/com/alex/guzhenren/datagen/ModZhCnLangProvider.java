@@ -17,10 +17,14 @@ public class ModZhCnLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.PRIMEVAL_STONE, "原石");
         translationBuilder.add(ModItems.LIQUOR, "酒");
 
+        translationBuilder.add(ModItems.HUASHI_GU_1, "花豕蛊");
+        translationBuilder.add(ModItems.YUANLAO_GU_1, "元老蛊");
+
         translationBuilder.add(ModBlocks.PRIMEVAL_STONE_BLOCK, "原石块");
         translationBuilder.add(ModBlocks.PRIMEVAL_STONE_ORE, "原石矿");
 
         translationBuilder.add(ModItemGroups.GU_MATERIAL_GROUP, "蛊材");
         translationBuilder.add(ModItemGroups.GU_FOOD_GROUP, "食物类");
+        translationBuilder.add(ModItemGroups.GU_GROUP, "蛊");
     }
 }

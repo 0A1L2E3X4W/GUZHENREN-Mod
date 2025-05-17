@@ -24,5 +24,8 @@ public class ModModelsProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.PRIMEVAL_STONE, Models.GENERATED);
         itemModelGenerator.register(ModItems.LIQUOR, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.HUASHI_GU_1, Models.GENERATED);
+        itemModelGenerator.register(ModItems.YUANLAO_GU_1, Models.GENERATED);
     }
 }

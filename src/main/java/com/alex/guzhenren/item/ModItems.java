@@ -1,6 +1,8 @@
 package com.alex.guzhenren.item;
 
 import com.alex.guzhenren.Guzhenren;
+import com.alex.guzhenren.item.custom.HuaShi_Gu_1;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -11,9 +13,17 @@ import net.minecraft.util.Identifier;
 public class ModItems {
 
     /*DEFINE MOD ITEMS*/
+    // ITEMS
     public static final Item PRIMEVAL_STONE = registerItem("primeval_stone", new Item(new Item.Settings()));
 
+    // MATERIALS
     public static final Item LIQUOR = registerItem("liquor", new Item(new Item.Settings().food(ModFoodComponents.LIQUOR)));
+
+    // GU
+    public static final Item YUANLAO_GU_1 = registerItem("yuanlao_gu1", new Item(new Item.Settings()
+            .maxCount(1)));
+    public static final Item HUASHI_GU_1 = registerItem("huashi_gu1", new HuaShi_Gu_1(new Item.Settings()
+            .maxCount(1).maxDamage(32)));
 
     /*MOD METHODS*/
     public static Item registerItem(String id, Item item) {

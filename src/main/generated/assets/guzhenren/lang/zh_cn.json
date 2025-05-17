@@ -1,8 +1,11 @@
 {
   "block.guzhenren.primeval_stone_block": "原石块",
   "block.guzhenren.primeval_stone_ore": "原石矿",
+  "item.guzhenren.huashi_gu1": "花豕蛊",
   "item.guzhenren.liquor": "酒",
   "item.guzhenren.primeval_stone": "原石",
+  "item.guzhenren.yuanlao_gu1": "元老蛊",
   "itemGroup.gu_food_group": "食物类",
+  "itemGroup.gu_group": "蛊",
   "itemGroup.gu_material_group": "蛊材"
 }

@@ -1,8 +1,11 @@
 {
   "block.guzhenren.primeval_stone_block": "Primeval Stone Block",
   "block.guzhenren.primeval_stone_ore": "Primeval Stone Ore",
+  "item.guzhenren.huashi_gu1": "Hua Zhi Gu",
   "item.guzhenren.liquor": "Liquor",
   "item.guzhenren.primeval_stone": "Primeval Stone",
+  "item.guzhenren.yuanlao_gu1": "Yuan Lao Gu",
   "itemGroup.gu_food_group": "Mod Food",
+  "itemGroup.gu_group": "Gu",
   "itemGroup.gu_material_group": "Gu Material"
 }
