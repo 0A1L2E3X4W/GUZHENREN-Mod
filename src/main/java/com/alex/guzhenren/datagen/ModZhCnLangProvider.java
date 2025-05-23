@@ -16,7 +16,6 @@ public class ModZhCnLangProvider extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add(ModItems.PRIMEVAL_STONE, "原石");
         translationBuilder.add(ModItems.LIQUOR, "酒");
-
         translationBuilder.add(ModItems.HUASHI_GU_1, "花豕蛊");
         translationBuilder.add(ModItems.YUANLAO_GU_1, "元老蛊");
 

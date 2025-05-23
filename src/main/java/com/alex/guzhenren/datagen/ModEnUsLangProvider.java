@@ -16,7 +16,6 @@ public class ModEnUsLangProvider extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add(ModItems.PRIMEVAL_STONE, "Primeval Stone");
         translationBuilder.add(ModItems.LIQUOR, "Liquor");
-
         translationBuilder.add(ModItems.HUASHI_GU_1, "Hua Zhi Gu");
         translationBuilder.add(ModItems.YUANLAO_GU_1, "Yuan Lao Gu");
 

@@ -1,7 +1,6 @@
 package com.alex.guzhenren;
 
 import com.alex.guzhenren.block.ModBlocks;
-import com.alex.guzhenren.datagen.ModWorldGenerator;
 import com.alex.guzhenren.item.ModItemGroups;
 import com.alex.guzhenren.item.ModItems;
 import com.alex.guzhenren.world.gen.ModWorldGeneration;
