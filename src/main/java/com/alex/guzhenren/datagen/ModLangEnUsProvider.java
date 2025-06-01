@@ -36,7 +36,7 @@ public class ModLangEnUsProvider extends FabricLanguageProvider {
     private static void generateScreenTextTranslation(TranslationBuilder translationBuilder) {
         translationBuilder.add("guzhenren.screen.title", "GUI");
         translationBuilder.add("guzhenren.screen.moral", "Moral");
-//        translationBuilder.add("guzhenren.screen.talent", "Talent");
+        translationBuilder.add("guzhenren.screen.talent", "Talent");
 //        translationBuilder.add("guzhenren.screen.extreme_physique", "Extreme Physique");
     }
 

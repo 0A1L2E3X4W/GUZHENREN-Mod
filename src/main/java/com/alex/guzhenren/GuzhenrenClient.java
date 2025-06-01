@@ -30,11 +30,13 @@ public class GuzhenrenClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(ModNetworking.CHANNEL_SEND_DATA,
                 (client, handler, buf, responseSender) -> {
                     int moral = buf.readInt();
+                    String talent = buf.readString();
 
                     client.execute(() -> {
                         PlayerEntity player = MinecraftClient.getInstance().player;
                         if (player instanceof ModPlayerImpl mod) {
                             mod.setMoral(moral);
+                            mod.setTalent(ModPlayerTalent.fromNameKey(talent));
                         }
                     });
                 }

@@ -14,12 +14,21 @@ import net.minecraft.util.Identifier;
 public class ModMessages {
 
     public static final Identifier SYNC_MORAL = new Identifier("guzhenren", "sync_moral");
+    public static final Identifier SYNC_TALENT = new Identifier("guzhenren", "sync_talent");
 
-    public static void syncMoral(PlayerEntity player, int moral) {
+    public static void syncMoral(PlayerEntity player, int v) {
         if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
             PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeInt(moral);
+            buf.writeInt(v);
             ServerPlayNetworking.send(serverPlayer, SYNC_MORAL, buf);
+        }
+    }
+
+    public static void syncTalent(PlayerEntity player, ModPlayerTalent v) {
+        if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeString(v.getNameKey());
+            ServerPlayNetworking.send(serverPlayer, SYNC_TALENT, buf);
         }
     }
 
@@ -29,6 +38,15 @@ public class ModMessages {
             client.execute(() -> {
                 if (client.player instanceof ModPlayerImpl playerImpl) {
                     playerImpl.setMoral(moral);
+                }
+            });
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_TALENT, (client, handler, buf, responseSender) -> {
+            String talent = buf.readString();
+            client.execute(() -> {
+                if (client.player instanceof ModPlayerImpl playerImpl) {
+                    playerImpl.setTalent(ModPlayerTalent.fromNameKey(talent));
                 }
             });
         });

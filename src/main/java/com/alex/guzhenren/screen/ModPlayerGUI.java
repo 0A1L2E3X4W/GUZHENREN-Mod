@@ -22,10 +22,16 @@ public class ModPlayerGUI extends Screen {
         this.renderBackground(context);
 
         int moral = modPlayer.getMoral();
+        ModPlayerTalent talent = modPlayer.getTalent();
 
         context.drawCenteredTextWithShadow(this.textRenderer,
                 Text.translatable("guzhenren.screen.moral").copy().append(": " + moral),
                 this.width / 2 - 40, this.height / 2, 0xFFFFFF
+        );
+
+        context.drawCenteredTextWithShadow(this.textRenderer,
+                Text.translatable("guzhenren.screen.talent").copy().append(": " + talent),
+                this.width / 2 - 40, this.height / 2 + 20, 0xFFFFFF
         );
 
         super.render(context, mouseX, mouseY, delta);

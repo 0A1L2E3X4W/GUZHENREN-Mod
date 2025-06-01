@@ -12,4 +12,13 @@ public enum ModPlayerTalent {
     private final String nameKey;
     ModPlayerTalent(String key) { this.nameKey = key; }
     public String getNameKey() { return nameKey; }
+
+    public static ModPlayerTalent fromNameKey(String key) {
+        for (ModPlayerTalent talent : values()) {
+            if (talent.nameKey.equals(key)) {
+                return talent;
+            }
+        }
+        return NULL;
+    }
 }

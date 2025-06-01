@@ -18,7 +18,9 @@ public class ModNetworking {
                     // 读取玩家的自定义数据
                     ModPlayerImpl mod = (ModPlayerImpl) player;
                     PacketByteBuf resp = new PacketByteBuf(io.netty.buffer.Unpooled.buffer());
+
                     resp.writeInt(mod.getMoral());
+                    resp.writeString(mod.getTalent().getNameKey());
 
                     // 发送回客户端
                     responseSender.sendPacket(CHANNEL_SEND_DATA, resp);

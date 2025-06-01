@@ -57,11 +57,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     public void writeCustomDataFromNbt(NbtCompound nbt, CallbackInfo callbackInfo) {
         NbtCompound att = new NbtCompound();
         nbt.putInt("guzhenren.player.moral", this.playerMoral);
+        nbt.putString("guzhenren.talent", this.playerTalent.getNameKey());
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo callbackInfo) {
         this.playerMoral = nbt.getInt("guzhenren.player.moral");
+        this.playerTalent = ModPlayerTalent.fromNameKey(nbt.getString("guzhenren.player.talent"));
     }
 
     @Override
@@ -82,6 +84,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Override
     public void setTalent(ModPlayerTalent v) {
         this.playerTalent = v;
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncTalent((PlayerEntity) (Object) this, this.playerTalent);
+        }
     }
 
     @Override
