@@ -21,6 +21,7 @@ public class ModModelsProvider extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.HUASHI_GU_1, Models.GENERATED);
         itemModelGenerator.register(ModItems.YUANLAO_GU_1, Models.GENERATED);
+        itemModelGenerator.register(ModItems.HOPE_GU, Models.GENERATED);
     }
 
     @Override

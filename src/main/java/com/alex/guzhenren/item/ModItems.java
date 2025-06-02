@@ -1,6 +1,7 @@
 package com.alex.guzhenren.item;
 
 import com.alex.guzhenren.Guzhenren;
+import com.alex.guzhenren.item.custom.Hope_Gu;
 import com.alex.guzhenren.item.custom.HuaShi_Gu_1;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -20,6 +21,8 @@ public class ModItems {
             .maxCount(1)));
     public static final Item HUASHI_GU_1 = registerItem("huashi_gu1", new HuaShi_Gu_1(new Item.Settings()
             .maxCount(1).maxDamage(32)));
+    public static final Item HOPE_GU = registerItem("hope_gu", new Hope_Gu(new Item.Settings()
+            .maxCount(1)));
 
     /*MOD METHODS*/
     public static Item registerItem(String id, Item item) {

@@ -40,6 +40,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     private EnumMap<ModPath, Integer> attainments = new EnumMap<>(ModPath.class);
     private EnumMap<ModPath, ModRealm> realm = new EnumMap<>(ModPath.class);
 
+    private boolean apertureStatus = false;
+
     @Inject(method = "<init>", at = @At("RETURN"))
     private void initDefaults(World world, BlockPos pos, float yaw, GameProfile gameProfile, CallbackInfo ci) {
         this.playerMoral = 100;
@@ -51,19 +53,29 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
         this.playerRank = ModRank.MORTAL;
         this.playerTalent = ModPlayerTalent.NULL;
         this.playerExtremePhysique = ModTenExtremePhysique.NULL;
+
+        this.apertureStatus = false;
     }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
     public void writeCustomDataFromNbt(NbtCompound nbt, CallbackInfo callbackInfo) {
         NbtCompound att = new NbtCompound();
         nbt.putInt("guzhenren.player.moral", this.playerMoral);
-        nbt.putString("guzhenren.talent", this.playerTalent.getNameKey());
+        nbt.putString("guzhenren.player.talent", this.playerTalent.getNameKey());
+        nbt.putString("guzhenren.player.extreme_physique", this.playerExtremePhysique.getNameKey());
+        nbt.putString("guzhenren.player.rank", this.playerRank.getNameKey());
+
+        nbt.putBoolean("guzhenren.player.unblocked", this.apertureStatus);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo callbackInfo) {
         this.playerMoral = nbt.getInt("guzhenren.player.moral");
         this.playerTalent = ModPlayerTalent.fromNameKey(nbt.getString("guzhenren.player.talent"));
+        this.playerExtremePhysique = ModTenExtremePhysique.fromNameKey(nbt.getString("guzhenren.player.extreme_physique"));
+        this.playerRank = ModRank.fromNameKey(nbt.getString("guzhenren.player.rank"));
+
+        this.apertureStatus = nbt.getBoolean("guzhenren.player.unblocked");
     }
 
     @Override
@@ -74,6 +86,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Override
     public void setRank(ModRank value) {
         this.playerRank = value;
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncRank((PlayerEntity) (Object) this, this.playerRank);
+        }
     }
 
     @Override
@@ -98,6 +114,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Override
     public void setSpecialPhysique(ModTenExtremePhysique v) {
         this.playerExtremePhysique = v;
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncExtremePhysique((PlayerEntity) (Object) this, this.playerExtremePhysique);
+        }
     }
 
     @Override
@@ -137,5 +157,19 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     public void changeAttainment(ModPath thePath, int theAttainment) {
         int result = getAttainment(thePath) + theAttainment;
         this.attainments.put(thePath, result);
+    }
+
+    @Override
+    public boolean getApertureStatus() {
+        return this.apertureStatus;
+    }
+
+    @Override
+    public void setApertureStatus(boolean v) {
+        this.apertureStatus = v;
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncApertureStatus((PlayerEntity) (Object) this, this.apertureStatus);
+        }
     }
 }

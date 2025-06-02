@@ -21,6 +21,10 @@ public class ModNetworking {
 
                     resp.writeInt(mod.getMoral());
                     resp.writeString(mod.getTalent().getNameKey());
+                    resp.writeString(mod.getSpecialPhysique().getNameKey());
+                    resp.writeString(mod.getRank().getNameKey());
+
+                    resp.writeBoolean(mod.getApertureStatus());
 
                     // 发送回客户端
                     responseSender.sendPacket(CHANNEL_SEND_DATA, resp);

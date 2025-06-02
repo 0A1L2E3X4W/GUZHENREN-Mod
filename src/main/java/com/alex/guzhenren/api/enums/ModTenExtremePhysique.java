@@ -18,4 +18,13 @@ public enum ModTenExtremePhysique {
     private final String nameKey;
     ModTenExtremePhysique(String key) { this.nameKey = key; }
     public String getNameKey() { return nameKey; }
+
+    public static ModTenExtremePhysique fromNameKey(String key) {
+        for (ModTenExtremePhysique physique : values()) {
+            if (physique.nameKey.equals(key)) {
+                return physique;
+            }
+        }
+        return NULL;
+    }
 }

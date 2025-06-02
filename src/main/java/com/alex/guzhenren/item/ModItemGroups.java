@@ -51,6 +51,7 @@ public class ModItemGroups {
                         .displayName(Text.translatable("itemGroup.gu_group"))
                         .icon(() -> new ItemStack(ModItems.HUASHI_GU_1))
                         .entries((displayContext, entries) -> {
+                            entries.add(ModItems.HOPE_GU);
                             entries.add(ModItems.HUASHI_GU_1);
                             entries.add(ModItems.YUANLAO_GU_1);
                         }).build());

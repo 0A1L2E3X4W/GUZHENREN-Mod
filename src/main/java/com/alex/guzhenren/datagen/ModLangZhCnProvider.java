@@ -18,6 +18,7 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.LIQUOR, "酒");
         translationBuilder.add(ModItems.HUASHI_GU_1, "一转花豕蛊");
         translationBuilder.add(ModItems.YUANLAO_GU_1, "一转元老蛊");
+        translationBuilder.add(ModItems.HOPE_GU, "希望蛊");
 
         translationBuilder.add(ModBlocks.PRIMEVAL_STONE_BLOCK, "原石块");
         translationBuilder.add(ModBlocks.PRIMEVAL_STONE_ORE, "原石矿");
@@ -29,15 +30,33 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
         generateRankTranslations(translationBuilder);
         generatePathNameTranslations(translationBuilder);
         generateRealmsTranslations(translationBuilder);
+        generateTalentTranslations(translationBuilder);
+        generatedTenExtremePhysiqueTranslations(translationBuilder);
 
         generateScreenTextTranslation(translationBuilder);
     }
 
+    private static void generatedTenExtremePhysiqueTranslations(TranslationBuilder translationBuilder) {
+        translationBuilder.add("guzhenren.extreme_physique.verdant_great_sun", "太日阳莽体");
+        translationBuilder.add("guzhenren.extreme_physique.desolate_ancient_moon", "古月阴荒体");
+        translationBuilder.add("guzhenren.extreme_physique.northern_dark_ice_soul", "北冥冰魄体");
+        translationBuilder.add("guzhenren.extreme_physique.boundless_forest_samsara", "森海轮回体");
+        translationBuilder.add("guzhenren.extreme_physique.blazing_glory_lightning_brilliance", "炎煌雷泽体");
+        translationBuilder.add("guzhenren.extreme_physique.myriad_gold_wondrous_essence", "万金妙华体");
+        translationBuilder.add("guzhenren.extreme_physique.great_strength_true_martial", "大力真武体");
+        translationBuilder.add("guzhenren.extreme_physique.carefree_wisdom_heart", "逍遥智心体");
+        translationBuilder.add("guzhenren.extreme_physique.central_earth_essence", "厚土元央体");
+        translationBuilder.add("guzhenren.extreme_physique.universe_great_derivation", "宇宙大衍体");
+        translationBuilder.add("guzhenren.extreme_physique.pure_dream_reality_seeker", "纯梦求真体");
+        translationBuilder.add("guzhenren.extreme_physique.null", "");
+    }
+
     private static void generateScreenTextTranslation(TranslationBuilder translationBuilder) {
         translationBuilder.add("guzhenren.screen.title", "GUI");
+        translationBuilder.add("guzhenren.screen.rank", "转数");
         translationBuilder.add("guzhenren.screen.moral", "道德");
         translationBuilder.add("guzhenren.screen.talent", "资质");
-//        translationBuilder.add("guzhenren.screen.extreme_physique", "天资");
+        translationBuilder.add("guzhenren.screen.extreme_physique", "天资");
     }
 
     private static void generateRealmsTranslations(TranslationBuilder translationBuilder) {
@@ -68,5 +87,14 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
         translationBuilder.add("guzhenren.path.earth", "土道");
         translationBuilder.add("guzhenren.path.power", "力道");
         translationBuilder.add("guzhenren.path.killing", "杀道");
+    }
+
+    private static void generateTalentTranslations(TranslationBuilder translationBuilder) {
+        translationBuilder.add("guzhenren.talent.a", "甲");
+        translationBuilder.add("guzhenren.talent.b", "乙");
+        translationBuilder.add("guzhenren.talent.c", "丙");
+        translationBuilder.add("guzhenren.talent.d", "丁");
+        translationBuilder.add("guzhenren.talent.ten_extreme", "十绝体");
+        translationBuilder.add("guzhenren.talent.null", "凡人");
     }
 }

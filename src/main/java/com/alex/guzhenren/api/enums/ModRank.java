@@ -16,4 +16,13 @@ public enum ModRank {
     private final String nameKey;
     ModRank(String key) { this.nameKey = key; }
     public String getNameKey() { return nameKey; }
+
+    public static ModRank fromNameKey(String key) {
+        for (ModRank rank : values()) {
+            if (rank.nameKey.equals(key)) {
+                return rank;
+            }
+        }
+        return MORTAL;
+    }
 }

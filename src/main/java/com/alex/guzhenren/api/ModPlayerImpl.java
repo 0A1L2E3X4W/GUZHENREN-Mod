@@ -39,4 +39,6 @@ public interface ModPlayerImpl {
     // realm
     ModRealm getRealm(ModPath thePath);
     void setRealm(ModPath thePath, ModRealm theRealm);
+
+    boolean getApertureStatus(); void setApertureStatus(boolean v);
 }

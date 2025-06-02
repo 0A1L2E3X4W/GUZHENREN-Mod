@@ -2,6 +2,7 @@ package com.alex.guzhenren;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
 import com.alex.guzhenren.api.enums.ModPlayerTalent;
+import com.alex.guzhenren.api.enums.ModRank;
 import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
 import com.alex.guzhenren.network.ModMessages;
 import com.alex.guzhenren.network.ModNetworking;
@@ -31,12 +32,19 @@ public class GuzhenrenClient implements ClientModInitializer {
                 (client, handler, buf, responseSender) -> {
                     int moral = buf.readInt();
                     String talent = buf.readString();
+                    String extremePhysique = buf.readString();
+                    String rank = buf.readString();
+
+                    boolean apertureStatus = buf.readBoolean();
 
                     client.execute(() -> {
                         PlayerEntity player = MinecraftClient.getInstance().player;
                         if (player instanceof ModPlayerImpl mod) {
                             mod.setMoral(moral);
                             mod.setTalent(ModPlayerTalent.fromNameKey(talent));
+                            mod.setSpecialPhysique(ModTenExtremePhysique.fromNameKey(extremePhysique));
+                            mod.setRank(ModRank.fromNameKey(rank));
+                            mod.setApertureStatus(apertureStatus);
                         }
                     });
                 }

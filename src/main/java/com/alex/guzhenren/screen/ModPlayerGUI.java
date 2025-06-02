@@ -2,6 +2,7 @@ package com.alex.guzhenren.screen;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
 import com.alex.guzhenren.api.enums.ModPlayerTalent;
+import com.alex.guzhenren.api.enums.ModRank;
 import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -23,15 +24,27 @@ public class ModPlayerGUI extends Screen {
 
         int moral = modPlayer.getMoral();
         ModPlayerTalent talent = modPlayer.getTalent();
+        ModTenExtremePhysique extremePhysique = modPlayer.getSpecialPhysique();
+        ModRank rank = modPlayer.getRank();
 
-        context.drawCenteredTextWithShadow(this.textRenderer,
-                Text.translatable("guzhenren.screen.moral").copy().append(": " + moral),
-                this.width / 2 - 40, this.height / 2, 0xFFFFFF
+        context.drawTextWithShadow(this.textRenderer,
+                Text.translatable("guzhenren.screen.rank").append(": ").append(Text.translatable(rank.getNameKey())),
+                20, 20, 0xFFFFFF
         );
 
-        context.drawCenteredTextWithShadow(this.textRenderer,
-                Text.translatable("guzhenren.screen.talent").copy().append(": " + talent),
-                this.width / 2 - 40, this.height / 2 + 20, 0xFFFFFF
+        context.drawTextWithShadow(this.textRenderer,
+                Text.translatable("guzhenren.screen.moral").copy().append(": " + moral),
+                20, 40, 0xFFFFFF
+        );
+
+        context.drawTextWithShadow(this.textRenderer,
+                Text.translatable("guzhenren.screen.talent").append(": ").append(Text.translatable(talent.getNameKey())),
+                20, 60, 0xFFFFFF
+        );
+
+        context.drawTextWithShadow(this.textRenderer,
+                Text.translatable("guzhenren.screen.extreme_physique").append(": ").append(Text.translatable(extremePhysique.getNameKey())),
+                20, 80, 0xFFFFFF
         );
 
         super.render(context, mouseX, mouseY, delta);
