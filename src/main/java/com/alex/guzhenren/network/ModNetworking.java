@@ -19,6 +19,9 @@ public class ModNetworking {
                     ModPlayerImpl mod = (ModPlayerImpl) player;
                     PacketByteBuf resp = new PacketByteBuf(io.netty.buffer.Unpooled.buffer());
 
+                    resp.writeFloat(mod.getCurrentEssence());
+                    resp.writeInt(mod.getMaxEssence());
+
                     resp.writeInt(mod.getMoral());
                     resp.writeString(mod.getTalent().getNameKey());
                     resp.writeString(mod.getSpecialPhysique().getNameKey());

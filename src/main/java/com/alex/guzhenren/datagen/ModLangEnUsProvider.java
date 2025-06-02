@@ -50,6 +50,7 @@ public class ModLangEnUsProvider extends FabricLanguageProvider {
         translationBuilder.add("guzhenren.screen.moral", "Moral");
         translationBuilder.add("guzhenren.screen.talent", "Talent");
         translationBuilder.add("guzhenren.screen.extreme_physique", "Extreme Physique");
+        translationBuilder.add("guzhenren.screen.essence", "Primeval Essence");
     }
 
     private static void generateRankTranslations(TranslationBuilder translationBuilder) {

@@ -39,8 +39,9 @@ public class Hope_Gu extends Item {
                     ((ModPlayerImpl) user).setSpecialPhysique(ModTenExtremePhysique.NULL);
                 }
 
+                ((ModPlayerImpl) user).setMaxEssence(getRandomMaxEssence(talent));
+//                ((ModPlayerImpl) user).setCurrentEssence(getRandomMaxEssence(talent));
                 ((ModPlayerImpl) user).setApertureStatus(true);
-
                 itemStack.decrement(1);
             }
         }
@@ -63,5 +64,19 @@ public class Hope_Gu extends Item {
         ModTenExtremePhysique[] values = ModTenExtremePhysique.values();
         int index = new Random().nextInt(values.length - 1) + 1; // 跳过NULL
         return values[index];
+    }
+
+    private int getRandomMaxEssence(ModGuMasterTalent talent) {
+        Random rand = new Random();
+        int max = 100000;
+        int min = 10000;
+
+        if (talent == ModGuMasterTalent.A) { min = 80000; max = 99000; }
+        if (talent == ModGuMasterTalent.B) { min = 60000; max = 79999; }
+        if (talent == ModGuMasterTalent.C) { min = 40000; max = 59999; }
+        if (talent == ModGuMasterTalent.D) { min = 20000; max = 39999; }
+        if (talent == ModGuMasterTalent.TEN_EXTREME) { return 100000; }
+
+        return rand.nextInt(max - min + 1) + min;
     }
 }

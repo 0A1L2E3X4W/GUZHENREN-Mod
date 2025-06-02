@@ -30,24 +30,29 @@ public class GuzhenrenClient implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(ModNetworking.CHANNEL_SEND_DATA,
                 (client, handler, buf, responseSender) -> {
-                    int moral = buf.readInt();
-                    String talent = buf.readString();
-                    String extremePhysique = buf.readString();
-                    String rank = buf.readString();
+            float currentEssence = buf.readFloat();
+            int maxEssence = buf.readInt();
 
-                    boolean apertureStatus = buf.readBoolean();
+            int moral = buf.readInt();
+            String talent = buf.readString();
+            String extremePhysique = buf.readString();
+            String rank = buf.readString();
 
-                    client.execute(() -> {
-                        PlayerEntity player = MinecraftClient.getInstance().player;
-                        if (player instanceof ModPlayerImpl mod) {
-                            mod.setMoral(moral);
-                            mod.setTalent(ModGuMasterTalent.fromNameKey(talent));
-                            mod.setSpecialPhysique(ModTenExtremePhysique.fromNameKey(extremePhysique));
-                            mod.setRank(ModGuMasterRank.fromNameKey(rank));
-                            mod.setApertureStatus(apertureStatus);
-                        }
-                    });
+            boolean apertureStatus = buf.readBoolean();
+
+            client.execute(() -> {
+                PlayerEntity player = MinecraftClient.getInstance().player;
+                if (player instanceof ModPlayerImpl mod) {
+                    mod.setMoral(moral);
+                    mod.setTalent(ModGuMasterTalent.fromNameKey(talent));
+                    mod.setSpecialPhysique(ModTenExtremePhysique.fromNameKey(extremePhysique));
+                    mod.setRank(ModGuMasterRank.fromNameKey(rank));
+                    mod.setApertureStatus(apertureStatus);
+
+                    mod.setMaxEssence(maxEssence);
+                    mod.setCurrentEssence(currentEssence);
                 }
-        );
+            });
+        });
     }
 }

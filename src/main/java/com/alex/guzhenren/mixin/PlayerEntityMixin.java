@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -42,6 +43,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
 
     private boolean apertureStatus = false;
 
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void onTick(CallbackInfo info) {
+        recoverEssencePerTick();
+    }
+
     @Inject(method = "<init>", at = @At("RETURN"))
     private void initDefaults(World world, BlockPos pos, float yaw, GameProfile gameProfile, CallbackInfo ci) {
         this.playerMoral = 100;
@@ -60,6 +66,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
     public void writeCustomDataFromNbt(NbtCompound nbt, CallbackInfo callbackInfo) {
         NbtCompound att = new NbtCompound();
+        nbt.putFloat("guzhenren.player.current_essence", this.currentEssences);
+        nbt.putInt("guzhenren.player.max_essence", this.maxEssences);
+
         nbt.putInt("guzhenren.player.moral", this.playerMoral);
         nbt.putString("guzhenren.player.talent", this.playerTalent.getNameKey());
         nbt.putString("guzhenren.player.extreme_physique", this.playerExtremePhysique.getNameKey());
@@ -70,12 +79,23 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
 
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo callbackInfo) {
+        this.currentEssences = nbt.getFloat("guzhenren.player.current_essence");
+        this.maxEssences = nbt.getInt("guzhenren.player.max_essence");
+
         this.playerMoral = nbt.getInt("guzhenren.player.moral");
         this.playerTalent = ModGuMasterTalent.fromNameKey(nbt.getString("guzhenren.player.talent"));
         this.playerExtremePhysique = ModTenExtremePhysique.fromNameKey(nbt.getString("guzhenren.player.extreme_physique"));
         this.playerRank = ModGuMasterRank.fromNameKey(nbt.getString("guzhenren.player.rank"));
 
         this.apertureStatus = nbt.getBoolean("guzhenren.player.unblocked");
+    }
+
+    @Unique
+    private void recoverEssencePerTick() {
+        float tickRecovery = maxEssences / 1728000f;
+        if (currentEssences < maxEssences) {
+            this.setCurrentEssence(Math.min(currentEssences + tickRecovery, maxEssences));
+        }
     }
 
     @Override
@@ -89,6 +109,43 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
 
         if (!this.getWorld().isClient()) {
             ModMessages.syncRank((PlayerEntity) (Object) this, this.playerRank);
+        }
+    }
+
+    @Override
+    public float getCurrentEssence() {
+        return this.currentEssences;
+    }
+
+    @Override
+    public void setCurrentEssence(float v) {
+        this.currentEssences = v;
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncCurrentEssence((PlayerEntity) (Object) this, this.currentEssences);
+        }
+    }
+
+    @Override
+    public void changeCurrentEssence(float v) {
+        this.currentEssences += v;
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncCurrentEssence((PlayerEntity) (Object) this, this.currentEssences);
+        }
+    }
+
+    @Override
+    public int getMaxEssence() {
+        return this.maxEssences;
+    }
+
+    @Override
+    public void setMaxEssence(int v) {
+        this.maxEssences = v;
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncMaxEssence((PlayerEntity) (Object) this, this.maxEssences);
         }
     }
 

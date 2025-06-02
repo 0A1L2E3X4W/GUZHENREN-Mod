@@ -14,12 +14,30 @@ import net.minecraft.util.Identifier;
 
 public class ModMessages {
 
+    public static final Identifier SYNC_CURRENT_ESSENCE = new Identifier("guzhenren", "sync_current_essence");
+    public static final Identifier SYNC_MAX_ESSENCE = new Identifier("guzhenren", "sync_max_essence");
+
     public static final Identifier SYNC_MORAL = new Identifier("guzhenren", "sync_moral");
     public static final Identifier SYNC_RANK = new Identifier("guzhenren", "sync_rank");
     public static final Identifier SYNC_TALENT = new Identifier("guzhenren", "sync_talent");
     public static final Identifier SYNC_EXTREME_PHYSIQUE = new Identifier("guzhenren", "sync_extreme_physique");
-
     public static final Identifier SYNC_APERTURE_STATUS = new Identifier("guzhenren", "sync_aperture_status");
+
+    public static void syncCurrentEssence(PlayerEntity player, float v) {
+        if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeFloat(v);
+            ServerPlayNetworking.send(serverPlayer, SYNC_CURRENT_ESSENCE, buf);
+        }
+    }
+
+    public static void syncMaxEssence(PlayerEntity player, int v) {
+        if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(v);
+            ServerPlayNetworking.send(serverPlayer, SYNC_MAX_ESSENCE, buf);
+        }
+    }
 
     public static void syncMoral(PlayerEntity player, int v) {
         if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
@@ -62,6 +80,25 @@ public class ModMessages {
     }
 
     public static void registerClientReceivers() {
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_CURRENT_ESSENCE, (client, handler, buf, responseSender) -> {
+            float v = buf.readFloat();
+            client.execute(() -> {
+                if (client.player instanceof ModPlayerImpl playerImpl) {
+                    playerImpl.setCurrentEssence(v);
+                }
+            });
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_MAX_ESSENCE, (client, handler, buf, responseSender) -> {
+            int v = buf.readInt();
+            client.execute(() -> {
+                if (client.player instanceof ModPlayerImpl playerImpl) {
+                    playerImpl.setMaxEssence(v);
+                }
+            });
+        });
+
         ClientPlayNetworking.registerGlobalReceiver(SYNC_MORAL, (client, handler, buf, responseSender) -> {
             int moral = buf.readInt();
             client.execute(() -> {

@@ -30,6 +30,8 @@ public class HuaShi_Gu_1 extends Item {
             // 设置10秒冷却
             user.getItemCooldownManager().set(this, 10 * 20);
 
+
+
             // 扣除耐久（参数1：扣除量，参数2：实体，参数3：损坏回调）
             itemStack.damage(1, user,
                     player -> player.sendToolBreakStatus(hand));

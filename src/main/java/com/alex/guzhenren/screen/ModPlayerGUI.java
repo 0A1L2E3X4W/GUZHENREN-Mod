@@ -22,6 +22,9 @@ public class ModPlayerGUI extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         this.renderBackground(context);
 
+        int maxEssence = modPlayer.getMaxEssence();
+        float currentEssence = modPlayer.getCurrentEssence();
+
         int moral = modPlayer.getMoral();
         ModGuMasterTalent talent = modPlayer.getTalent();
         ModTenExtremePhysique extremePhysique = modPlayer.getSpecialPhysique();
@@ -33,18 +36,23 @@ public class ModPlayerGUI extends Screen {
         );
 
         context.drawTextWithShadow(this.textRenderer,
-                Text.translatable("guzhenren.screen.moral").copy().append(": " + moral),
-                20, 40, 0xFFFFFF
+                Text.translatable("guzhenren.screen.essence").append(": ").append(String.format("%.2f", currentEssence)).append(" / " + maxEssence),
+                20,40, 0xFFFFFF
         );
 
         context.drawTextWithShadow(this.textRenderer,
-                Text.translatable("guzhenren.screen.talent").append(": ").append(Text.translatable(talent.getNameKey())),
+                Text.translatable("guzhenren.screen.moral").copy().append(": " + moral),
                 20, 60, 0xFFFFFF
         );
 
         context.drawTextWithShadow(this.textRenderer,
-                Text.translatable("guzhenren.screen.extreme_physique").append(": ").append(Text.translatable(extremePhysique.getNameKey())),
+                Text.translatable("guzhenren.screen.talent").append(": ").append(Text.translatable(talent.getNameKey())),
                 20, 80, 0xFFFFFF
+        );
+
+        context.drawTextWithShadow(this.textRenderer,
+                Text.translatable("guzhenren.screen.extreme_physique").append(": ").append(Text.translatable(extremePhysique.getNameKey())),
+                20, 100, 0xFFFFFF
         );
 
         super.render(context, mouseX, mouseY, delta);

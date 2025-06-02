@@ -56,6 +56,7 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
         translationBuilder.add("guzhenren.screen.moral", "道德");
         translationBuilder.add("guzhenren.screen.talent", "资质");
         translationBuilder.add("guzhenren.screen.extreme_physique", "天资");
+        translationBuilder.add("guzhenren.screen.essence", "真元");
     }
 
     private static void generateRealmsTranslations(TranslationBuilder translationBuilder) {
