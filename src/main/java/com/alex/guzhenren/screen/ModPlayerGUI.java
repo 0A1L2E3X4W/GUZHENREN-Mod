@@ -36,7 +36,7 @@ public class ModPlayerGUI extends Screen {
         );
 
         context.drawTextWithShadow(this.textRenderer,
-                Text.translatable("guzhenren.screen.essence").append(": ").append(String.format("%.2f", currentEssence)).append(" / " + maxEssence),
+                Text.translatable("guzhenren.screen.essence").append(": ").append(String.format("%.0f", currentEssence)).append(" / " + maxEssence),
                 20,40, 0xFFFFFF
         );
 

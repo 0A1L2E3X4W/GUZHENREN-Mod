@@ -128,6 +128,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
 
     @Override
     public void changeCurrentEssence(float v) {
+
         this.currentEssences += v;
 
         if (!this.getWorld().isClient()) {
@@ -226,7 +227,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
         this.apertureStatus = v;
 
         if (!this.getWorld().isClient()) {
-            ModMessages.syncApertureStatus((PlayerEntity) (Object) this, this.apertureStatus);
+            ModMessages.syncApertureStatus((PlayerEntity)(Object)this, this.apertureStatus);
         }
     }
 }

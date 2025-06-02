@@ -1,4 +1,4 @@
-package com.alex.guzhenren.item.custom;
+package com.alex.guzhenren.item.custom.gu;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
 import com.alex.guzhenren.api.enums.ModGuMasterTalent;
@@ -22,31 +22,33 @@ public class Hope_Gu extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
+        ModPlayerImpl modPlayer = (ModPlayerImpl)user;
 
         if (!world.isClient()) {
 
-            if (!((ModPlayerImpl) user).getApertureStatus()) {
-                ((ModPlayerImpl) user).setRank(ModGuMasterRank.RANK_ONE_INIT);
+            if (!modPlayer.getApertureStatus()) {
+                modPlayer.setRank(ModGuMasterRank.RANK_ONE_INIT);
 
                 ModGuMasterTalent talent = getRandomTalent();
-                ((ModPlayerImpl) user).setTalent(talent);
+                modPlayer.setTalent(talent);
 
                 if (talent == ModGuMasterTalent.TEN_EXTREME) {
                     ModTenExtremePhysique extremePhysique = getRandomPhysique();
-                    ((ModPlayerImpl) user).setSpecialPhysique(extremePhysique);
+                    modPlayer.setSpecialPhysique(extremePhysique);
                 }
                 else {
-                    ((ModPlayerImpl) user).setSpecialPhysique(ModTenExtremePhysique.NULL);
+                    modPlayer.setSpecialPhysique(ModTenExtremePhysique.NULL);
                 }
 
-                ((ModPlayerImpl) user).setMaxEssence(getRandomMaxEssence(talent));
-//                ((ModPlayerImpl) user).setCurrentEssence(getRandomMaxEssence(talent));
-                ((ModPlayerImpl) user).setApertureStatus(true);
+                modPlayer.setMaxEssence(getRandomMaxEssence(talent));
+                modPlayer.setCurrentEssence(modPlayer.getMaxEssence());
+
                 itemStack.decrement(1);
+                return TypedActionResult.success(itemStack);
             }
         }
 
-        return TypedActionResult.success(itemStack);
+        return TypedActionResult.fail(itemStack);
     }
 
     private ModGuMasterTalent getRandomTalent() {

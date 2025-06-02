@@ -1,5 +1,6 @@
-package com.alex.guzhenren.item.custom;
+package com.alex.guzhenren.item.custom.gu;
 
+import com.alex.guzhenren.api.ModPlayerImpl;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,26 +16,35 @@ public class HuaShi_Gu_1 extends Item {
         super(settings);
     }
 
+    public static final int ESSENCE_REQUIRE = -10000;
+
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
+        ModPlayerImpl modPlayer = (ModPlayerImpl)user;
 
         if (!world.isClient()) {
+
+            int modifier = modPlayer.getRank().getEssenceModifier();
+            int result = ESSENCE_REQUIRE / modifier;
+
+            if (modPlayer.getCurrentEssence() < -result) {
+                return TypedActionResult.success(itemStack);
+            }
+
             // 添加30秒力量II效果
             user.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.STRENGTH,
-                    30 * 20,  // 持续时间（30秒 * 20 tick/秒）
-                    1         // 效果等级（0为I级，1为II级）
+                    30 * 20, 1
             ));
+
+            modPlayer.changeCurrentEssence(result);
 
             // 设置10秒冷却
             user.getItemCooldownManager().set(this, 10 * 20);
 
-
-
             // 扣除耐久（参数1：扣除量，参数2：实体，参数3：损坏回调）
-            itemStack.damage(1, user,
-                    player -> player.sendToolBreakStatus(hand));
+            itemStack.damage(1, user, player -> player.sendToolBreakStatus(hand));
         }
 
         return TypedActionResult.success(itemStack);

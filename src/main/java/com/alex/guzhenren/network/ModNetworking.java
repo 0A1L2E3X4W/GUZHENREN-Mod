@@ -16,18 +16,18 @@ public class ModNetworking {
         ServerPlayNetworking.registerGlobalReceiver(CHANNEL_REQUEST_DATA,
                 (server, player, handler, buf, responseSender) -> {
                     // 读取玩家的自定义数据
-                    ModPlayerImpl mod = (ModPlayerImpl) player;
+                    ModPlayerImpl modPlayer = (ModPlayerImpl) player;
                     PacketByteBuf resp = new PacketByteBuf(io.netty.buffer.Unpooled.buffer());
 
-                    resp.writeFloat(mod.getCurrentEssence());
-                    resp.writeInt(mod.getMaxEssence());
+                    resp.writeFloat(modPlayer.getCurrentEssence());
+                    resp.writeInt(modPlayer.getMaxEssence());
 
-                    resp.writeInt(mod.getMoral());
-                    resp.writeString(mod.getTalent().getNameKey());
-                    resp.writeString(mod.getSpecialPhysique().getNameKey());
-                    resp.writeString(mod.getRank().getNameKey());
+                    resp.writeInt(modPlayer.getMoral());
+                    resp.writeString(modPlayer.getTalent().getNameKey());
+                    resp.writeString(modPlayer.getSpecialPhysique().getNameKey());
+                    resp.writeString(modPlayer.getRank().getNameKey());
 
-                    resp.writeBoolean(mod.getApertureStatus());
+                    resp.writeBoolean(modPlayer.getApertureStatus());
 
                     // 发送回客户端
                     responseSender.sendPacket(CHANNEL_SEND_DATA, resp);

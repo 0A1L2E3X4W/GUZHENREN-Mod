@@ -37,7 +37,6 @@ public class GuzhenrenClient implements ClientModInitializer {
             String talent = buf.readString();
             String extremePhysique = buf.readString();
             String rank = buf.readString();
-
             boolean apertureStatus = buf.readBoolean();
 
             client.execute(() -> {
@@ -47,10 +46,9 @@ public class GuzhenrenClient implements ClientModInitializer {
                     mod.setTalent(ModGuMasterTalent.fromNameKey(talent));
                     mod.setSpecialPhysique(ModTenExtremePhysique.fromNameKey(extremePhysique));
                     mod.setRank(ModGuMasterRank.fromNameKey(rank));
-                    mod.setApertureStatus(apertureStatus);
-
                     mod.setMaxEssence(maxEssence);
                     mod.setCurrentEssence(currentEssence);
+                    mod.setApertureStatus(apertureStatus);
                 }
             });
         });

@@ -14,7 +14,7 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(TranslationBuilder translationBuilder) {
-        translationBuilder.add(ModItems.PRIMEVAL_STONE, "原石");
+        translationBuilder.add(ModItems.PRIMEVAL_STONE, "元石");
         translationBuilder.add(ModItems.LIQUOR, "酒");
         translationBuilder.add(ModItems.HUASHI_GU_1, "一转花豕蛊");
         translationBuilder.add(ModItems.HOPE_GU, "希望蛊");

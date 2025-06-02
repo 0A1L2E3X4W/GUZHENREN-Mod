@@ -1,9 +1,9 @@
 package com.alex.guzhenren.item;
 
 import com.alex.guzhenren.Guzhenren;
-import com.alex.guzhenren.item.custom.Hope_Gu;
-import com.alex.guzhenren.item.custom.HuaShi_Gu_1;
-import net.minecraft.item.BlockItem;
+import com.alex.guzhenren.item.custom.PrimevalStone;
+import com.alex.guzhenren.item.custom.gu.Hope_Gu;
+import com.alex.guzhenren.item.custom.gu.HuaShi_Gu_1;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -14,7 +14,7 @@ public class ModItems {
 
     // ITEMS
     public static final Item PRIMEVAL_STONE = registerItem("primeval_stone",
-            new Item(new Item.Settings().maxCount(64)));
+            new PrimevalStone(new Item.Settings().maxCount(64)));
 
     // FOOD
     public static final Item LIQUOR = registerItem("liquor", new Item(new Item.Settings().food(ModFoodComponents.LIQUOR)));
@@ -33,23 +33,6 @@ public class ModItems {
     public static Item registerItems(String id, Item item) {
         return Registry.register(Registries.ITEM, RegistryKey.of(Registries.ITEM.getKey(),
                 new Identifier(Guzhenren.MOD_ID)), item);
-    }
-
-    /*Minecraft Methods*/
-    public static Item register(String id, Item item) {
-        return register(new Identifier(id), item);
-    }
-
-    public static Item register(Identifier id, Item item) {
-        return register(RegistryKey.of(Registries.ITEM.getKey(), id), item);
-    }
-
-    public static Item register(RegistryKey<Item> key, Item item) {
-        if (item instanceof BlockItem) {
-            ((BlockItem)item).appendBlocks(Item.BLOCK_ITEMS, item);
-        }
-
-        return Registry.register(Registries.ITEM, key, item);
     }
 
     public static void registerItems() {
