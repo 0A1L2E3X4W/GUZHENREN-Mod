@@ -20,12 +20,12 @@ public interface ModPlayerImpl {
     void setMaxEssence(int v);
 
     // rank
-    ModRank getRank();
-    void setRank(ModRank value);
+    ModGuMasterRank getRank();
+    void setRank(ModGuMasterRank value);
 
     // talent
-    ModPlayerTalent getTalent();
-    void setTalent(ModPlayerTalent v);
+    ModGuMasterTalent getTalent();
+    void setTalent(ModGuMasterTalent v);
 
     // ten extreme physique
     ModTenExtremePhysique getSpecialPhysique();
@@ -37,8 +37,8 @@ public interface ModPlayerImpl {
     void changeAttainment(ModPath thePath, int theAttainment);
 
     // realm
-    ModRealm getRealm(ModPath thePath);
-    void setRealm(ModPath thePath, ModRealm theRealm);
+    ModPathRealm getRealm(ModPath thePath);
+    void setRealm(ModPath thePath, ModPathRealm theRealm);
 
     boolean getApertureStatus(); void setApertureStatus(boolean v);
 }

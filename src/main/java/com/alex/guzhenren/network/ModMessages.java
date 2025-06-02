@@ -1,8 +1,8 @@
 package com.alex.guzhenren.network;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.ModPlayerTalent;
-import com.alex.guzhenren.api.enums.ModRank;
+import com.alex.guzhenren.api.enums.ModGuMasterTalent;
+import com.alex.guzhenren.api.enums.ModGuMasterRank;
 import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -29,7 +29,7 @@ public class ModMessages {
         }
     }
 
-    public static void syncRank(PlayerEntity player, ModRank v) {
+    public static void syncRank(PlayerEntity player, ModGuMasterRank v) {
         if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeString(v.getNameKey());
@@ -37,7 +37,7 @@ public class ModMessages {
         }
     }
 
-    public static void syncTalent(PlayerEntity player, ModPlayerTalent v) {
+    public static void syncTalent(PlayerEntity player, ModGuMasterTalent v) {
         if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeString(v.getNameKey());
@@ -75,7 +75,7 @@ public class ModMessages {
             String talent = buf.readString();
             client.execute(() -> {
                 if (client.player instanceof ModPlayerImpl playerImpl) {
-                    playerImpl.setTalent(ModPlayerTalent.fromNameKey(talent));
+                    playerImpl.setTalent(ModGuMasterTalent.fromNameKey(talent));
                 }
             });
         });
@@ -84,7 +84,7 @@ public class ModMessages {
             String rank = buf.readString();
             client.execute(() -> {
                 if (client.player instanceof ModPlayerImpl playerImpl) {
-                    playerImpl.setRank(ModRank.fromNameKey(rank));
+                    playerImpl.setRank(ModGuMasterRank.fromNameKey(rank));
                 }
             });
         });

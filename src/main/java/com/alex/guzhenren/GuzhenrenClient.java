@@ -1,8 +1,8 @@
 package com.alex.guzhenren;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.ModPlayerTalent;
-import com.alex.guzhenren.api.enums.ModRank;
+import com.alex.guzhenren.api.enums.ModGuMasterTalent;
+import com.alex.guzhenren.api.enums.ModGuMasterRank;
 import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
 import com.alex.guzhenren.network.ModMessages;
 import com.alex.guzhenren.network.ModNetworking;
@@ -41,9 +41,9 @@ public class GuzhenrenClient implements ClientModInitializer {
                         PlayerEntity player = MinecraftClient.getInstance().player;
                         if (player instanceof ModPlayerImpl mod) {
                             mod.setMoral(moral);
-                            mod.setTalent(ModPlayerTalent.fromNameKey(talent));
+                            mod.setTalent(ModGuMasterTalent.fromNameKey(talent));
                             mod.setSpecialPhysique(ModTenExtremePhysique.fromNameKey(extremePhysique));
-                            mod.setRank(ModRank.fromNameKey(rank));
+                            mod.setRank(ModGuMasterRank.fromNameKey(rank));
                             mod.setApertureStatus(apertureStatus);
                         }
                     });

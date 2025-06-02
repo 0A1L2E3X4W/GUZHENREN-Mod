@@ -53,7 +53,6 @@ public class ModItemGroups {
                         .entries((displayContext, entries) -> {
                             entries.add(ModItems.HOPE_GU);
                             entries.add(ModItems.HUASHI_GU_1);
-                            entries.add(ModItems.YUANLAO_GU_1);
                         }).build());
     }
 }

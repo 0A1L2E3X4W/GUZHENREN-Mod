@@ -1,6 +1,6 @@
 package com.alex.guzhenren.api.enums;
 
-public enum ModRealm {
+public enum ModPathRealm {
 
     ORDINARY("guzhenren.title.ordinary"),
     QUASI_MASTER("guzhenren.title.master"),
@@ -11,6 +11,6 @@ public enum ModRealm {
     SUPREME_GRANDMASTER("guzhenren.title.supreme_grandmaster");
 
     private final String nameKey;
-    ModRealm(String key) { this.nameKey = key; }
+    ModPathRealm(String key) { this.nameKey = key; }
     public String getNameKey() { return nameKey; }
 }

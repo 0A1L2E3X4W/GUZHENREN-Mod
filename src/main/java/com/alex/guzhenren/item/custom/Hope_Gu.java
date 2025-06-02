@@ -1,8 +1,8 @@
 package com.alex.guzhenren.item.custom;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.ModPlayerTalent;
-import com.alex.guzhenren.api.enums.ModRank;
+import com.alex.guzhenren.api.enums.ModGuMasterTalent;
+import com.alex.guzhenren.api.enums.ModGuMasterRank;
 import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -26,12 +26,12 @@ public class Hope_Gu extends Item {
         if (!world.isClient()) {
 
             if (!((ModPlayerImpl) user).getApertureStatus()) {
-                ((ModPlayerImpl) user).setRank(ModRank.RANK_ONE);
+                ((ModPlayerImpl) user).setRank(ModGuMasterRank.RANK_ONE_INIT);
 
-                ModPlayerTalent talent = getRandomTalent();
+                ModGuMasterTalent talent = getRandomTalent();
                 ((ModPlayerImpl) user).setTalent(talent);
 
-                if (talent == ModPlayerTalent.TEN_EXTREME) {
+                if (talent == ModGuMasterTalent.TEN_EXTREME) {
                     ModTenExtremePhysique extremePhysique = getRandomPhysique();
                     ((ModPlayerImpl) user).setSpecialPhysique(extremePhysique);
                 }
@@ -48,15 +48,15 @@ public class Hope_Gu extends Item {
         return TypedActionResult.success(itemStack);
     }
 
-    private ModPlayerTalent getRandomTalent() {
+    private ModGuMasterTalent getRandomTalent() {
         Random rand = new Random();
         double r = rand.nextDouble() * 100;
 
-        if (r < 25) return ModPlayerTalent.D;
-        if (r < 50) return ModPlayerTalent.C;
-        if (r < 70) return ModPlayerTalent.B;
-        if (r < 90) return ModPlayerTalent.A;
-        return ModPlayerTalent.TEN_EXTREME;
+        if (r < 25) return ModGuMasterTalent.D;
+        if (r < 50) return ModGuMasterTalent.C;
+        if (r < 70) return ModGuMasterTalent.B;
+        if (r < 90) return ModGuMasterTalent.A;
+        return ModGuMasterTalent.TEN_EXTREME;
     }
 
     private ModTenExtremePhysique getRandomPhysique() {

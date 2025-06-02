@@ -1,8 +1,8 @@
 package com.alex.guzhenren.screen;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.ModPlayerTalent;
-import com.alex.guzhenren.api.enums.ModRank;
+import com.alex.guzhenren.api.enums.ModGuMasterTalent;
+import com.alex.guzhenren.api.enums.ModGuMasterRank;
 import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -23,9 +23,9 @@ public class ModPlayerGUI extends Screen {
         this.renderBackground(context);
 
         int moral = modPlayer.getMoral();
-        ModPlayerTalent talent = modPlayer.getTalent();
+        ModGuMasterTalent talent = modPlayer.getTalent();
         ModTenExtremePhysique extremePhysique = modPlayer.getSpecialPhysique();
-        ModRank rank = modPlayer.getRank();
+        ModGuMasterRank rank = modPlayer.getRank();
 
         context.drawTextWithShadow(this.textRenderer,
                 Text.translatable("guzhenren.screen.rank").append(": ").append(Text.translatable(rank.getNameKey())),

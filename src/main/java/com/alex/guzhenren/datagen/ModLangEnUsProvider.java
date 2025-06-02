@@ -17,7 +17,6 @@ public class ModLangEnUsProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.PRIMEVAL_STONE, "Primeval Stone");
         translationBuilder.add(ModItems.LIQUOR, "Liquor");
         translationBuilder.add(ModItems.HUASHI_GU_1, "Hua Zhi Gu - Rank 1");
-        translationBuilder.add(ModItems.YUANLAO_GU_1, "Yuan Lao Gu - Rank 1");
         translationBuilder.add(ModItems.HOPE_GU, "Hope Gu");
 
         translationBuilder.add(ModBlocks.PRIMEVAL_STONE_BLOCK, "Primeval Stone Block");
@@ -55,15 +54,11 @@ public class ModLangEnUsProvider extends FabricLanguageProvider {
 
     private static void generateRankTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add("guzhenren.rank.mortal", "Mortal");
-        translationBuilder.add("guzhenren.rank.one", "Rank One");
-        translationBuilder.add("guzhenren.rank.two", "Rank Two");
-        translationBuilder.add("guzhenren.rank.three", "Rank Three");
-        translationBuilder.add("guzhenren.rank.four", "Rank Four");
-        translationBuilder.add("guzhenren.rank.five", "Rank Five");
-        translationBuilder.add("guzhenren.rank.six", "Rank Six");
-        translationBuilder.add("guzhenren.rank.seven", "Rank Seven");
-        translationBuilder.add("guzhenren.rank.eight", "Rank Right");
-        translationBuilder.add("guzhenren.rank.nine", "Rank Nine");
+
+        translationBuilder.add("guzhenren.rank.one_init", "Rank One Init");
+        translationBuilder.add("guzhenren.rank.one_mid", "Rank One Middle");
+        translationBuilder.add("guzhenren.rank.one_upper", "Rank One Upper");
+        translationBuilder.add("guzhenren.rank.one_peak", "Rank One Peak");
     }
 
     private static void generateRealmsTranslations(TranslationBuilder translationBuilder) {
@@ -95,6 +90,6 @@ public class ModLangEnUsProvider extends FabricLanguageProvider {
         translationBuilder.add("guzhenren.extreme_physique.central_earth_essence", "Central Earth Essence");
         translationBuilder.add("guzhenren.extreme_physique.universe_great_derivation", "Universe Great Derivation");
         translationBuilder.add("guzhenren.extreme_physique.pure_dream_reality_seeker", "Pure Dream Reality Seeker");
-        translationBuilder.add("guzhenren.extreme_physique.null", "");
+        translationBuilder.add("guzhenren.extreme_physique.null", "None");
     }
 }

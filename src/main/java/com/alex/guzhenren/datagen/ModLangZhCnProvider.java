@@ -17,7 +17,6 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.PRIMEVAL_STONE, "原石");
         translationBuilder.add(ModItems.LIQUOR, "酒");
         translationBuilder.add(ModItems.HUASHI_GU_1, "一转花豕蛊");
-        translationBuilder.add(ModItems.YUANLAO_GU_1, "一转元老蛊");
         translationBuilder.add(ModItems.HOPE_GU, "希望蛊");
 
         translationBuilder.add(ModBlocks.PRIMEVAL_STONE_BLOCK, "原石块");
@@ -48,7 +47,7 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
         translationBuilder.add("guzhenren.extreme_physique.central_earth_essence", "厚土元央体");
         translationBuilder.add("guzhenren.extreme_physique.universe_great_derivation", "宇宙大衍体");
         translationBuilder.add("guzhenren.extreme_physique.pure_dream_reality_seeker", "纯梦求真体");
-        translationBuilder.add("guzhenren.extreme_physique.null", "");
+        translationBuilder.add("guzhenren.extreme_physique.null", "无");
     }
 
     private static void generateScreenTextTranslation(TranslationBuilder translationBuilder) {
@@ -71,15 +70,10 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
 
     private static void generateRankTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add("guzhenren.rank.mortal", "凡人");
-        translationBuilder.add("guzhenren.rank.one", "一转");
-        translationBuilder.add("guzhenren.rank.two", "二转");
-        translationBuilder.add("guzhenren.rank.three", "三转");
-        translationBuilder.add("guzhenren.rank.four", "四转");
-        translationBuilder.add("guzhenren.rank.five", "五转");
-        translationBuilder.add("guzhenren.rank.six", "六转");
-        translationBuilder.add("guzhenren.rank.seven", "七转");
-        translationBuilder.add("guzhenren.rank.eight", "八转");
-        translationBuilder.add("guzhenren.rank.nine", "九转");
+        translationBuilder.add("guzhenren.rank.one_init", "一转初阶");
+        translationBuilder.add("guzhenren.rank.one_mid", "一转中阶");
+        translationBuilder.add("guzhenren.rank.one_upper", "一转高阶");
+        translationBuilder.add("guzhenren.rank.one_peak", "一转巅峰");
     }
 
     private static void generatePathNameTranslations(TranslationBuilder translationBuilder) {

@@ -1,6 +1,6 @@
 package com.alex.guzhenren.api.enums;
 
-public enum ModPlayerTalent {
+public enum ModGuMasterTalent {
 
     A("guzhenren.talent.a"),
     B("guzhenren.talent.b"),
@@ -10,11 +10,11 @@ public enum ModPlayerTalent {
     NULL("guzhenren.talent.null");
 
     private final String nameKey;
-    ModPlayerTalent(String key) { this.nameKey = key; }
+    ModGuMasterTalent(String key) { this.nameKey = key; }
     public String getNameKey() { return nameKey; }
 
-    public static ModPlayerTalent fromNameKey(String key) {
-        for (ModPlayerTalent talent : values()) {
+    public static ModGuMasterTalent fromNameKey(String key) {
+        for (ModGuMasterTalent talent : values()) {
             if (talent.nameKey.equals(key)) {
                 return talent;
             }

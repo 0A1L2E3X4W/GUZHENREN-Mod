@@ -34,11 +34,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     private float currentEssences;
     private int maxEssences;
 
-    private ModRank playerRank;
-    private ModPlayerTalent playerTalent;
+    private ModGuMasterRank playerRank;
+    private ModGuMasterTalent playerTalent;
     private ModTenExtremePhysique playerExtremePhysique;
     private EnumMap<ModPath, Integer> attainments = new EnumMap<>(ModPath.class);
-    private EnumMap<ModPath, ModRealm> realm = new EnumMap<>(ModPath.class);
+    private EnumMap<ModPath, ModPathRealm> realm = new EnumMap<>(ModPath.class);
 
     private boolean apertureStatus = false;
 
@@ -50,8 +50,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
         this.currentEssences = 0F;
         this.maxEssences = 0;
 
-        this.playerRank = ModRank.MORTAL;
-        this.playerTalent = ModPlayerTalent.NULL;
+        this.playerRank = ModGuMasterRank.MORTAL;
+        this.playerTalent = ModGuMasterTalent.NULL;
         this.playerExtremePhysique = ModTenExtremePhysique.NULL;
 
         this.apertureStatus = false;
@@ -71,20 +71,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo callbackInfo) {
         this.playerMoral = nbt.getInt("guzhenren.player.moral");
-        this.playerTalent = ModPlayerTalent.fromNameKey(nbt.getString("guzhenren.player.talent"));
+        this.playerTalent = ModGuMasterTalent.fromNameKey(nbt.getString("guzhenren.player.talent"));
         this.playerExtremePhysique = ModTenExtremePhysique.fromNameKey(nbt.getString("guzhenren.player.extreme_physique"));
-        this.playerRank = ModRank.fromNameKey(nbt.getString("guzhenren.player.rank"));
+        this.playerRank = ModGuMasterRank.fromNameKey(nbt.getString("guzhenren.player.rank"));
 
         this.apertureStatus = nbt.getBoolean("guzhenren.player.unblocked");
     }
 
     @Override
-    public ModRank getRank() {
+    public ModGuMasterRank getRank() {
         return this.playerRank;
     }
 
     @Override
-    public void setRank(ModRank value) {
+    public void setRank(ModGuMasterRank value) {
         this.playerRank = value;
 
         if (!this.getWorld().isClient()) {
@@ -93,12 +93,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     }
 
     @Override
-    public ModPlayerTalent getTalent() {
+    public ModGuMasterTalent getTalent() {
         return this.playerTalent;
     }
 
     @Override
-    public void setTalent(ModPlayerTalent v) {
+    public void setTalent(ModGuMasterTalent v) {
         this.playerTalent = v;
 
         if (!this.getWorld().isClient()) {

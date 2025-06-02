@@ -12,17 +12,18 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
 
+    // ITEMS
     public static final Item PRIMEVAL_STONE = registerItem("primeval_stone",
             new Item(new Item.Settings().maxCount(64)));
 
+    // FOOD
     public static final Item LIQUOR = registerItem("liquor", new Item(new Item.Settings().food(ModFoodComponents.LIQUOR)));
 
-    public static final Item YUANLAO_GU_1 = registerItem("yuanlao_gu1", new Item(new Item.Settings()
-            .maxCount(1)));
+    // GU
+    public static final Item HOPE_GU = registerItem("hope_gu", new Hope_Gu(new Item.Settings()
+            .maxCount(64)));
     public static final Item HUASHI_GU_1 = registerItem("huashi_gu1", new HuaShi_Gu_1(new Item.Settings()
             .maxCount(1).maxDamage(32)));
-    public static final Item HOPE_GU = registerItem("hope_gu", new Hope_Gu(new Item.Settings()
-            .maxCount(1)));
 
     /*MOD METHODS*/
     public static Item registerItem(String id, Item item) {
