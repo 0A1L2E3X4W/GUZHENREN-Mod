@@ -1,10 +1,7 @@
 package com.alex.guzhenren.network;
 
-import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.ModGuMasterRank;
-import com.alex.guzhenren.api.enums.ModGuMasterTalent;
-import com.alex.guzhenren.api.enums.ModPath;
-import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
+import com.alex.guzhenren.utils.ModPlayerImpl;
+import com.alex.guzhenren.utils.enums.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -31,16 +28,17 @@ public class ModNetworking {
                     resp.writeInt(modPlayer.getMaxEssence());
 
                     resp.writeInt(modPlayer.getMoral());
+                    resp.writeInt(modPlayer.getSoul());
                     resp.writeString(modPlayer.getTalent().getNameKey());
-                    resp.writeString(modPlayer.getSpecialPhysique().getNameKey());
+                    resp.writeString(modPlayer.getExtremePhysique().getNameKey());
                     resp.writeString(modPlayer.getRank().getNameKey());
 
                     resp.writeBoolean(modPlayer.getApertureStatus());
 
-                    resp.writeInt(modPlayer.getAttainment(ModPath.KILLING));
-                    resp.writeInt(modPlayer.getAttainment(ModPath.HEAVEN));
-                    resp.writeInt(modPlayer.getAttainment(ModPath.POWER));
-                    resp.writeInt(modPlayer.getAttainment(ModPath.EARTH));
+                    for (ModPath path : ModPath.values()) {
+                        resp.writeInt(modPlayer.getAttainment(path));
+                        resp.writeString(modPlayer.getRealm(path).getNameKey());
+                    }
 
                     // 发送回客户端
                     responseSender.sendPacket(CHANNEL_SEND_DATA, resp);
@@ -65,31 +63,38 @@ public class ModNetworking {
                     int maxEssence = buf.readInt();
 
                     int moral = buf.readInt();
+                    int soul = buf.readInt();
                     String talent = buf.readString();
                     String extremePhysique = buf.readString();
                     String rank = buf.readString();
                     boolean apertureStatus = buf.readBoolean();
 
-                    int killing = buf.readInt();
-                    int heaven = buf.readInt();
-                    int power = buf.readInt();
-                    int earth = buf.readInt();
+                    int pathCount = ModPath.values().length;
+                    int[] tmpAttainments = new int[pathCount];
+                    String[] tmpRealmKeys = new String[pathCount];
+                    for (int i = 0; i < pathCount; i++) {
+                        tmpAttainments[i] = buf.readInt();
+                        tmpRealmKeys[i]   = buf.readString();
+                    }
 
                     client.execute(() -> {
                         PlayerEntity player = MinecraftClient.getInstance().player;
-                        if (player instanceof ModPlayerImpl mod) {
-                            mod.setMoral(moral);
-                            mod.setTalent(ModGuMasterTalent.fromNameKey(talent));
-                            mod.setSpecialPhysique(ModTenExtremePhysique.fromNameKey(extremePhysique));
-                            mod.setRank(ModGuMasterRank.fromNameKey(rank));
-                            mod.setMaxEssence(maxEssence);
-                            mod.setCurrentEssence(currentEssence);
-                            mod.setApertureStatus(apertureStatus);
+                        if (player instanceof ModPlayerImpl modPlayer) {
+                            modPlayer.setMoral(moral);
+                            modPlayer.setSoul(soul);
+                            modPlayer.setTalent(ModGuMasterTalent.fromNameKey(talent));
+                            modPlayer.setExtremePhysique(ModTenExtremePhysique.fromNameKey(extremePhysique));
+                            modPlayer.setRank(ModGuMasterRank.fromNameKey(rank));
+                            modPlayer.setMaxEssence(maxEssence);
+                            modPlayer.setCurrentEssence(currentEssence);
+                            modPlayer.setApertureStatus(apertureStatus);
 
-                            mod.setAttainment(ModPath.KILLING, killing);
-                            mod.setAttainment(ModPath.HEAVEN, heaven);
-                            mod.setAttainment(ModPath.POWER, power);
-                            mod.setAttainment(ModPath.EARTH, earth);
+                            ModPath[] allPaths = ModPath.values();
+                            for (int i = 0; i < pathCount; i++) {
+                                ModPath path = allPaths[i];
+                                modPlayer.setAttainment(path, tmpAttainments[i]);
+                                modPlayer.setRealm(path, ModPathRealm.fromNameKey(tmpRealmKeys[i]));
+                            }
                         }
                     });
                 });

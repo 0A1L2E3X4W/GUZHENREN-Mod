@@ -1,6 +1,6 @@
 package com.alex.guzhenren.item.custom.gu;
 
-import com.alex.guzhenren.api.ModPlayerImpl;
+import com.alex.guzhenren.utils.ModPlayerImpl;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,6 +1,8 @@
 package com.alex.guzhenren.mixin;
 
-import com.alex.guzhenren.api.ModPlayerImpl;
+import com.alex.guzhenren.utils.ModPlayerImpl;
+import com.alex.guzhenren.utils.enums.ModPath;
+import com.alex.guzhenren.utils.enums.ModPathRealm;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -29,6 +31,11 @@ public abstract class LivingEntityMixin extends Entity {
         if (attacker instanceof PlayerEntity && (
                 entity instanceof VillagerEntity || entity instanceof IronGolemEntity || entity instanceof SnowGolemEntity)) {
             ((ModPlayerImpl) attacker).changeMoral(-1);
+            ((ModPlayerImpl) attacker).changeAttainment(ModPath.KILLING, 1);
+            ((ModPlayerImpl) attacker).changeAttainment(ModPath.HEAVEN, 120);
+            ((ModPlayerImpl) attacker).changeAttainment(ModPath.HUMAN, 400);
+            ((ModPlayerImpl) attacker).setRealm(ModPath.HUMAN, ModPathRealm.GRANDMASTER);
+            ((ModPlayerImpl) attacker).setRealm(ModPath.POWER, ModPathRealm.SUPREME_GRANDMASTER);
         }
     }
 }

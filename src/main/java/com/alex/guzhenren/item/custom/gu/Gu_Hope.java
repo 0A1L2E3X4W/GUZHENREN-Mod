@@ -1,9 +1,9 @@
 package com.alex.guzhenren.item.custom.gu;
 
-import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.ModGuMasterTalent;
-import com.alex.guzhenren.api.enums.ModGuMasterRank;
-import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
+import com.alex.guzhenren.utils.ModPlayerImpl;
+import com.alex.guzhenren.utils.enums.ModGuMasterTalent;
+import com.alex.guzhenren.utils.enums.ModGuMasterRank;
+import com.alex.guzhenren.utils.enums.ModTenExtremePhysique;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,10 +34,10 @@ public class Gu_Hope extends Item {
 
                 if (talent == ModGuMasterTalent.TEN_EXTREME) {
                     ModTenExtremePhysique extremePhysique = getRandomPhysique();
-                    modPlayer.setSpecialPhysique(extremePhysique);
+                    modPlayer.setExtremePhysique(extremePhysique);
                 }
                 else {
-                    modPlayer.setSpecialPhysique(ModTenExtremePhysique.NULL);
+                    modPlayer.setExtremePhysique(ModTenExtremePhysique.NULL);
                 }
 
                 modPlayer.setMaxEssence(getRandomMaxEssence(talent));

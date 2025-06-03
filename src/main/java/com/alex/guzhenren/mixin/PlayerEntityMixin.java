@@ -1,7 +1,7 @@
 package com.alex.guzhenren.mixin;
 
-import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.*;
+import com.alex.guzhenren.utils.ModPlayerImpl;
+import com.alex.guzhenren.utils.enums.*;
 import com.alex.guzhenren.network.ModMessages;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.EntityType;
@@ -29,19 +29,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
         super(entityType, world);
     }
 
-    private int playerMoral;
-    private float playerLifespan;
+    @Unique private int moral;
+    @Unique private float lifespan;
+    @Unique private int soul;
 
-    private float currentEssences;
-    private int maxEssences;
+    @Unique private float currentEssences;
+    @Unique private int maxEssences;
 
-    private ModGuMasterRank playerRank;
-    private ModGuMasterTalent playerTalent;
-    private ModTenExtremePhysique playerExtremePhysique;
-    private EnumMap<ModPath, Integer> attainments = new EnumMap<>(ModPath.class);
-    private EnumMap<ModPath, ModPathRealm> realm = new EnumMap<>(ModPath.class);
+    @Unique private ModGuMasterRank rank;
+    @Unique private ModGuMasterTalent talent;
+    @Unique private ModTenExtremePhysique extremePhysique;
+    @Unique private EnumMap<ModPath, Integer> attainments = new EnumMap<>(ModPath.class);
+    @Unique private EnumMap<ModPath, ModPathRealm> realms = new EnumMap<>(ModPath.class);
 
-    private boolean apertureStatus = false;
+    @Unique private boolean apertureStatus = false;
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void onTick(CallbackInfo info) {
@@ -50,17 +51,25 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void initDefaults(World world, BlockPos pos, float yaw, GameProfile gameProfile, CallbackInfo ci) {
-        this.playerMoral = 100;
-        this.playerLifespan = 0F;
+        this.moral = 100;
+        this.lifespan = 0F;
 
         this.currentEssences = 0F;
         this.maxEssences = 0;
 
-        this.playerRank = ModGuMasterRank.MORTAL;
-        this.playerTalent = ModGuMasterTalent.NULL;
-        this.playerExtremePhysique = ModTenExtremePhysique.NULL;
+        this.rank = ModGuMasterRank.MORTAL;
+        this.talent = ModGuMasterTalent.NULL;
+        this.extremePhysique = ModTenExtremePhysique.NULL;
 
         this.apertureStatus = false;
+
+        for (ModPath path: ModPath.values()) {
+            this.attainments.put(path, 0);
+        }
+
+        for (ModPath path: ModPath.values()) {
+            this.realms.put(path, ModPathRealm.ORDINARY);
+        }
     }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
@@ -69,10 +78,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
         nbt.putFloat("guzhenren.player.current_essence", this.currentEssences);
         nbt.putInt("guzhenren.player.max_essence", this.maxEssences);
 
-        nbt.putInt("guzhenren.player.moral", this.playerMoral);
-        nbt.putString("guzhenren.player.talent", this.playerTalent.getNameKey());
-        nbt.putString("guzhenren.player.extreme_physique", this.playerExtremePhysique.getNameKey());
-        nbt.putString("guzhenren.player.rank", this.playerRank.getNameKey());
+        nbt.putInt("guzhenren.player.moral", this.moral);
+        nbt.putInt("guzhenren.player.soul", this.soul);
+        nbt.putString("guzhenren.player.talent", this.talent.getNameKey());
+        nbt.putString("guzhenren.player.extreme_physique", this.extremePhysique.getNameKey());
+        nbt.putString("guzhenren.player.rank", this.rank.getNameKey());
 
         nbt.putBoolean("guzhenren.player.unblocked", this.apertureStatus);
     }
@@ -82,10 +92,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
         this.currentEssences = nbt.getFloat("guzhenren.player.current_essence");
         this.maxEssences = nbt.getInt("guzhenren.player.max_essence");
 
-        this.playerMoral = nbt.getInt("guzhenren.player.moral");
-        this.playerTalent = ModGuMasterTalent.fromNameKey(nbt.getString("guzhenren.player.talent"));
-        this.playerExtremePhysique = ModTenExtremePhysique.fromNameKey(nbt.getString("guzhenren.player.extreme_physique"));
-        this.playerRank = ModGuMasterRank.fromNameKey(nbt.getString("guzhenren.player.rank"));
+        this.moral = nbt.getInt("guzhenren.player.moral");
+        this.soul = nbt.getInt("guzhenren.player.soul");
+        this.talent = ModGuMasterTalent.fromNameKey(nbt.getString("guzhenren.player.talent"));
+        this.extremePhysique = ModTenExtremePhysique.fromNameKey(nbt.getString("guzhenren.player.extreme_physique"));
+        this.rank = ModGuMasterRank.fromNameKey(nbt.getString("guzhenren.player.rank"));
 
         this.apertureStatus = nbt.getBoolean("guzhenren.player.unblocked");
     }
@@ -100,16 +111,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
 
     @Override
     public ModGuMasterRank getRank() {
-        return this.playerRank;
+        return this.rank;
     }
 
     @Override
     public void setRank(ModGuMasterRank value) {
-        this.playerRank = value;
-
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncRank((PlayerEntity) (Object) this, this.playerRank);
-        }
+        this.rank = value;
+        ModMessages.syncRank((PlayerEntity) (Object) this, this.rank);
     }
 
     @Override
@@ -120,20 +128,14 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Override
     public void setCurrentEssence(float v) {
         this.currentEssences = v;
-
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncCurrentEssence((PlayerEntity) (Object) this, this.currentEssences);
-        }
+        ModMessages.syncCurrentEssence((PlayerEntity) (Object) this, this.currentEssences);
     }
 
     @Override
     public void changeCurrentEssence(float v) {
 
         this.currentEssences += v;
-
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncCurrentEssence((PlayerEntity) (Object) this, this.currentEssences);
-        }
+        ModMessages.syncCurrentEssence((PlayerEntity) (Object) this, this.currentEssences);
     }
 
     @Override
@@ -144,61 +146,63 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Override
     public void setMaxEssence(int v) {
         this.maxEssences = v;
-
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncMaxEssence((PlayerEntity) (Object) this, this.maxEssences);
-        }
+        ModMessages.syncMaxEssence((PlayerEntity) (Object) this, this.maxEssences);
     }
 
     @Override
     public ModGuMasterTalent getTalent() {
-        return this.playerTalent;
+        return this.talent;
     }
 
     @Override
     public void setTalent(ModGuMasterTalent v) {
-        this.playerTalent = v;
-
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncTalent((PlayerEntity) (Object) this, this.playerTalent);
-        }
+        this.talent = v;
+        ModMessages.syncTalent((PlayerEntity) (Object) this, this.talent);
     }
 
     @Override
-    public ModTenExtremePhysique getSpecialPhysique() {
-        return this.playerExtremePhysique;
+    public ModTenExtremePhysique getExtremePhysique() {
+        return this.extremePhysique;
     }
 
     @Override
-    public void setSpecialPhysique(ModTenExtremePhysique v) {
-        this.playerExtremePhysique = v;
-
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncExtremePhysique((PlayerEntity) (Object) this, this.playerExtremePhysique);
-        }
+    public void setExtremePhysique(ModTenExtremePhysique v) {
+        this.extremePhysique = v;
+        ModMessages.syncExtremePhysique((PlayerEntity) (Object) this, this.extremePhysique);
     }
 
     @Override
     public int getMoral() {
-        return this.playerMoral;
+        return this.moral;
     }
 
     @Override
     public void setMoral(int v) {
-        this.playerMoral = v;
-
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncMoral((PlayerEntity) (Object) this, this.playerMoral);
-        }
+        this.moral = v;
+        ModMessages.syncMoral((PlayerEntity) (Object) this, this.moral);
     }
 
     @Override
     public void changeMoral(int v) {
-        this.playerMoral += v;
+        this.moral += v;
+        ModMessages.syncMoral((PlayerEntity) (Object) this, this.moral);
+    }
 
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncMoral((PlayerEntity) (Object) this, this.playerMoral);
-        }
+    @Override
+    public int getSoul() {
+        return this.soul;
+    }
+
+    @Override
+    public void setSoul(int v) {
+        this.soul = v;
+        ModMessages.syncSoul((PlayerEntity) (Object) this, this.soul);
+    }
+
+    @Override
+    public void changeSoul(int v) {
+        this.soul += v;
+        ModMessages.syncSoul((PlayerEntity) (Object) this, this.soul);
     }
 
     @Override
@@ -209,20 +213,25 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Override
     public void setAttainment(ModPath thePath, int theAttainment) {
         this.attainments.put(thePath, theAttainment);
-
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncAttainment((PlayerEntity) (Object) this, thePath, theAttainment);
-        }
+        ModMessages.syncPathAttainment((PlayerEntity)(Object)this, thePath, theAttainment);
     }
 
     @Override
     public void changeAttainment(ModPath thePath, int theAttainment) {
         int result = getAttainment(thePath) + theAttainment;
         this.attainments.put(thePath, result);
+        ModMessages.syncPathAttainment((PlayerEntity)(Object)this, thePath, result);
+    }
 
-        if (!this.getWorld().isClient()) {
-            ModMessages.syncAttainment((PlayerEntity) (Object) this, thePath, result);
-        }
+    @Override
+    public ModPathRealm getRealm(ModPath thePath) {
+        return this.realms.getOrDefault(thePath, ModPathRealm.ORDINARY);
+    }
+
+    @Override
+    public void setRealm(ModPath thePath, ModPathRealm theRealm) {
+        this.realms.put(thePath, theRealm);
+        ModMessages.syncPathRealm((PlayerEntity)(Object)this, thePath, theRealm);
     }
 
     @Override

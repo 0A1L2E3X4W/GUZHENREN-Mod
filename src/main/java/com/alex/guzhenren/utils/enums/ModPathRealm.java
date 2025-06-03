@@ -1,4 +1,4 @@
-package com.alex.guzhenren.api.enums;
+package com.alex.guzhenren.utils.enums;
 
 public enum ModPathRealm {
 

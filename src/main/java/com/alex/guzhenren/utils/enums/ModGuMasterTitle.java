@@ -1,4 +1,4 @@
-package com.alex.guzhenren.api.enums;
+package com.alex.guzhenren.utils.enums;
 
 public enum ModGuMasterTitle {
     LONE_CULTIVATOR("guzhenren.title.lone_cultivator"),

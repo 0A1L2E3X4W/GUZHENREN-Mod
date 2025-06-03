@@ -4,6 +4,7 @@ import com.alex.guzhenren.block.ModBlocks;
 import com.alex.guzhenren.effect.ModEffects;
 import com.alex.guzhenren.item.ModItemGroups;
 import com.alex.guzhenren.item.ModItems;
+import com.alex.guzhenren.utils.enums.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
@@ -37,66 +38,101 @@ public class ModLangEnUsProvider extends FabricLanguageProvider {
         generatePathNameTranslations(translationBuilder);
         generateTalentTranslations(translationBuilder);
         generatedTenExtremePhysiqueTranslations(translationBuilder);
-
         generateScreenTextTranslation(translationBuilder);
     }
 
     private static void generateTalentTranslations(TranslationBuilder translationBuilder) {
-        translationBuilder.add("guzhenren.talent.a", "A");
-        translationBuilder.add("guzhenren.talent.b", "B");
-        translationBuilder.add("guzhenren.talent.c", "C");
-        translationBuilder.add("guzhenren.talent.d", "D");
-        translationBuilder.add("guzhenren.talent.ten_extreme", "Ten Extreme Physique");
-        translationBuilder.add("guzhenren.talent.null", "Ordinary");
+        translationBuilder.add(ModGuMasterTalent.A.getNameKey(), "A");
+        translationBuilder.add(ModGuMasterTalent.B.getNameKey(), "B");
+        translationBuilder.add(ModGuMasterTalent.C.getNameKey(), "C");
+        translationBuilder.add(ModGuMasterTalent.D.getNameKey(), "D");
+        translationBuilder.add(ModGuMasterTalent.TEN_EXTREME.getNameKey(), "Ten Extreme Physique");
+        translationBuilder.add(ModGuMasterTalent.NULL.getNameKey(), "Ordinary");
+    }
+
+    private static void generateRankTranslations(TranslationBuilder translationBuilder) {
+        translationBuilder.add(ModGuMasterRank.MORTAL.getNameKey(), "Mortal");
+
+        translationBuilder.add(ModGuMasterRank.RANK_ONE_INIT.getNameKey(), "Rank One Init");
+        translationBuilder.add(ModGuMasterRank.RANK_ONE_MID.getNameKey(), "Rank One Middle");
+        translationBuilder.add(ModGuMasterRank.RANK_ONE_UPPER.getNameKey(), "Rank One Upper");
+        translationBuilder.add(ModGuMasterRank.RANK_ONE_PEAK.getNameKey(), "Rank One Peak");
+    }
+
+    private static void generatePathNameTranslations(TranslationBuilder translationBuilder) {
+        translationBuilder.add(ModPath.HEAVEN.getNameKey(), "Heaven Path");
+        translationBuilder.add(ModPath.TIME.getNameKey(), "Time Path");
+        translationBuilder.add(ModPath.SPACE.getNameKey(), "Space Path");
+        translationBuilder.add(ModPath.HUMAN.getNameKey(), "Human Path");
+        translationBuilder.add(ModPath.RULE.getNameKey(), "Rule Path");
+
+        translationBuilder.add(ModPath.EARTH.getNameKey(), "Earth Path");
+        translationBuilder.add(ModPath.WATER.getNameKey(), "Water Path");
+        translationBuilder.add(ModPath.METAL.getNameKey(), "Metal Path");
+        translationBuilder.add(ModPath.WOOD.getNameKey(), "Wood Path");
+        translationBuilder.add(ModPath.ICE_SNOW.getNameKey(), "Ice&Snow Path");
+        translationBuilder.add(ModPath.FIRE.getNameKey(), "Fire Path");
+        translationBuilder.add(ModPath.DARK.getNameKey(), "Dark Path");
+        translationBuilder.add(ModPath.LIGHT.getNameKey(), "Light Path");
+        translationBuilder.add(ModPath.CLOUD.getNameKey(), "Cloud Path");
+        translationBuilder.add(ModPath.MOON.getNameKey(), "Moon Path");
+        translationBuilder.add(ModPath.WIND.getNameKey(), "Wind Path");
+        translationBuilder.add(ModPath.QI.getNameKey(), "QI Path");
+
+        translationBuilder.add(ModPath.POWER.getNameKey(), "Power Path");
+        translationBuilder.add(ModPath.DREAM.getNameKey(), "Dream Path");
+        translationBuilder.add(ModPath.ENSLAVEMENT.getNameKey(), "Enslavement Path");
+        translationBuilder.add(ModPath.FORMATION.getNameKey(), "Formation Path");
+        translationBuilder.add(ModPath.TRANSFORMATION.getNameKey(), "Transformation Path");
+        translationBuilder.add(ModPath.INFORMATION.getNameKey(), "Information Path");
+        translationBuilder.add(ModPath.LUCK.getNameKey(), "Luck Path");
+        translationBuilder.add(ModPath.REFINEMENT.getNameKey(), "Refinement Path");
+        translationBuilder.add(ModPath.SOUND.getNameKey(), "Sound Path");
+        translationBuilder.add(ModPath.THEFT.getNameKey(), "Theft Path");
+        translationBuilder.add(ModPath.BLADE.getNameKey(), "Blade Path");
+        translationBuilder.add(ModPath.WISDOM.getNameKey(), "Wisdom Path");
+
+        translationBuilder.add(ModPath.KILLING.getNameKey(), "Killing Path");
+        translationBuilder.add(ModPath.BLOOD.getNameKey(), "Blood Path");
+        translationBuilder.add(ModPath.POISON.getNameKey(), "Poison Path");
+        translationBuilder.add(ModPath.SOUL.getNameKey(), "Soul Path");
+    }
+
+    private static void generateRealmsTranslations(TranslationBuilder translationBuilder) {
+        translationBuilder.add(ModPathRealm.ORDINARY.getNameKey(), "Ordinary");
+        translationBuilder.add(ModPathRealm.QUASI_MASTER.getNameKey(), "Quasi-Master");
+        translationBuilder.add(ModPathRealm.MASTER.getNameKey(), "Master");
+        translationBuilder.add(ModPathRealm.QUASI_GRANDMASTER.getNameKey(), "Quasi-GrandMaster");
+        translationBuilder.add(ModPathRealm.GRANDMASTER.getNameKey(), "GrandMaster");
+        translationBuilder.add(ModPathRealm.QUASI_SUPREME_GRANDMASTER.getNameKey(), "Quasi-Supreme-GrandMaster");
+        translationBuilder.add(ModPathRealm.SUPREME_GRANDMASTER.getNameKey(), "Supreme-GrandMaster");
+    }
+
+    private static void generatedTenExtremePhysiqueTranslations(TranslationBuilder translationBuilder) {
+        translationBuilder.add(ModTenExtremePhysique.VERDANT_GREAT_SUN.getNameKey(), "Verdant Great Sun");
+        translationBuilder.add(ModTenExtremePhysique.DESOLATE_ANCIENT_MOON.getNameKey(), "Desolate Ancient Moon");
+        translationBuilder.add(ModTenExtremePhysique.NORTHERN_DARK_ICE_SOUL.getNameKey(), "Northern Dark Ice Soul");
+        translationBuilder.add(ModTenExtremePhysique.BOUNDLESS_FOREST_SAMSARA.getNameKey(), "Boundless Forest Samsara");
+        translationBuilder.add(ModTenExtremePhysique.BLAZING_GLORY_LIGHTNING_BRILLIANCE.getNameKey(), "Blazing Glory Lightning Brilliance");
+        translationBuilder.add(ModTenExtremePhysique.MYRIAD_GOLD_WONDROUS_ESSENCE.getNameKey(), "Myriad Gold Wondrous Essence");
+        translationBuilder.add(ModTenExtremePhysique.GREAT_STRENGTH_TRUE_MARTIAL.getNameKey(), "Great Strength True Martial");
+        translationBuilder.add(ModTenExtremePhysique.CAREFREE_WISDOM_HEART.getNameKey(), "Carefree Wisdom Heart");
+        translationBuilder.add(ModTenExtremePhysique.CENTRAL_EARTH_ESSENCE.getNameKey(), "Central Earth Essence");
+        translationBuilder.add(ModTenExtremePhysique.UNIVERSE_GREAT_DERIVATION.getNameKey(), "Universe Great Derivation");
+        translationBuilder.add(ModTenExtremePhysique.PURE_DREAM_REALITY_SEEKER.getNameKey(), "Pure Dream Reality Seeker");
+        translationBuilder.add(ModTenExtremePhysique.NULL.getNameKey(), "None");
     }
 
     private static void generateScreenTextTranslation(TranslationBuilder translationBuilder) {
         translationBuilder.add("guzhenren.screen.title", "GUI");
         translationBuilder.add("guzhenren.screen.rank", "Rank");
         translationBuilder.add("guzhenren.screen.moral", "Moral");
+        translationBuilder.add("guzhenren.screen.soul", "Soul");
         translationBuilder.add("guzhenren.screen.talent", "Talent");
         translationBuilder.add("guzhenren.screen.extreme_physique", "Extreme Physique");
         translationBuilder.add("guzhenren.screen.essence", "Primeval Essence");
-    }
-
-    private static void generateRankTranslations(TranslationBuilder translationBuilder) {
-        translationBuilder.add("guzhenren.rank.mortal", "Mortal");
-
-        translationBuilder.add("guzhenren.rank.one_init", "Rank One Init");
-        translationBuilder.add("guzhenren.rank.one_mid", "Rank One Middle");
-        translationBuilder.add("guzhenren.rank.one_upper", "Rank One Upper");
-        translationBuilder.add("guzhenren.rank.one_peak", "Rank One Peak");
-    }
-
-    private static void generateRealmsTranslations(TranslationBuilder translationBuilder) {
-        translationBuilder.add("guzhenren.title.ordinary", "Ordinary");
-        translationBuilder.add("guzhenren.title.quasi_master", "Quasi-Master");
-        translationBuilder.add("guzhenren.title.master", "Master");
-        translationBuilder.add("guzhenren.title.quasi_grandmaster", "Quasi-GrandMaster");
-        translationBuilder.add("guzhenren.title.grandmaster", "GrandMaster");
-        translationBuilder.add("guzhenren.title.quasi_supreme_grandmaster", "Quasi-Supreme-GrandMaster");
-        translationBuilder.add("guzhenren.title.supreme_grandmaster", "Supreme-GrandMaster");
-    }
-
-    private static void generatePathNameTranslations(TranslationBuilder translationBuilder) {
-        translationBuilder.add("guzhenren.path.heaven", "Heaven Path");
-        translationBuilder.add("guzhenren.path.earth", "Earth Path");
-        translationBuilder.add("guzhenren.path.power", "Power Path");
-        translationBuilder.add("guzhenren.path.killing", "Killing Path");
-    }
-
-    private static void generatedTenExtremePhysiqueTranslations(TranslationBuilder translationBuilder) {
-        translationBuilder.add("guzhenren.extreme_physique.verdant_great_sun", "Verdant Great Sun");
-        translationBuilder.add("guzhenren.extreme_physique.desolate_ancient_moon", "Desolate Ancient Moon");
-        translationBuilder.add("guzhenren.extreme_physique.northern_dark_ice_soul", "Northern Dark Ice Soul");
-        translationBuilder.add("guzhenren.extreme_physique.boundless_forest_samsara", "Boundless Forest Samsara");
-        translationBuilder.add("guzhenren.extreme_physique.blazing_glory_lightning_brilliance", "Blazing Glory Lightning Brilliance");
-        translationBuilder.add("guzhenren.extreme_physique.myriad_gold_wondrous_essence", "Myriad Gold Wondrous Essence");
-        translationBuilder.add("guzhenren.extreme_physique.great_strength_true_martial", "Great Strength True Martial");
-        translationBuilder.add("guzhenren.extreme_physique.carefree_wisdom_heart", "Carefree Wisdom Heart");
-        translationBuilder.add("guzhenren.extreme_physique.central_earth_essence", "Central Earth Essence");
-        translationBuilder.add("guzhenren.extreme_physique.universe_great_derivation", "Universe Great Derivation");
-        translationBuilder.add("guzhenren.extreme_physique.pure_dream_reality_seeker", "Pure Dream Reality Seeker");
-        translationBuilder.add("guzhenren.extreme_physique.null", "None");
+        translationBuilder.add("guzhenren.screen.main_page_btn", "Main Page");
+        translationBuilder.add("guzhenren.screen.path_page_btn", "Path Attainment");
+        translationBuilder.add("guzhenren.screen.realm_page_btn", "Path Realms");
     }
 }

@@ -1,10 +1,7 @@
 package com.alex.guzhenren.network;
 
-import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.ModGuMasterTalent;
-import com.alex.guzhenren.api.enums.ModGuMasterRank;
-import com.alex.guzhenren.api.enums.ModPath;
-import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
+import com.alex.guzhenren.utils.ModPlayerImpl;
+import com.alex.guzhenren.utils.enums.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -19,15 +16,15 @@ public class ModMessages {
     public static final Identifier SYNC_MAX_ESSENCE = new Identifier("guzhenren", "sync_max_essence");
 
     public static final Identifier SYNC_MORAL = new Identifier("guzhenren", "sync_moral");
+    public static final Identifier SYNC_SOUL = new Identifier("guzhenren", "sync_soul");
     public static final Identifier SYNC_RANK = new Identifier("guzhenren", "sync_rank");
     public static final Identifier SYNC_TALENT = new Identifier("guzhenren", "sync_talent");
     public static final Identifier SYNC_EXTREME_PHYSIQUE = new Identifier("guzhenren", "sync_extreme_physique");
     public static final Identifier SYNC_APERTURE_STATUS = new Identifier("guzhenren", "sync_aperture_status");
 
-    public static final Identifier SYNC_KILLING_ATTAINMENT = new Identifier("guzhenren", "sync_killing_dao");
-    public static final Identifier SYNC_HEAVEN_ATTAINMENT = new Identifier("guzhenren", "sync_heaven_dao");
-    public static final Identifier SYNC_POWER_ATTAINMENT = new Identifier("guzhenren", "sync_power_dao");
-    public static final Identifier SYNC_EARTH_ATTAINMENT = new Identifier("guzhenren", "sync_earth_dao");
+    public static final Identifier SYNC_PATH_ATTAINMENT = new Identifier("guzhenren", "sync_path_attainment");
+    public static final Identifier SYNC_PATH_REALM      = new Identifier("guzhenren", "sync_path_realm");
+
 
     public static void syncCurrentEssence(PlayerEntity player, float v) {
         if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
@@ -50,6 +47,14 @@ public class ModMessages {
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeInt(v);
             ServerPlayNetworking.send(serverPlayer, SYNC_MORAL, buf);
+        }
+    }
+
+    public static void syncSoul(PlayerEntity player, int v) {
+        if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(v);
+            ServerPlayNetworking.send(serverPlayer, SYNC_SOUL, buf);
         }
     }
 
@@ -77,25 +82,33 @@ public class ModMessages {
         }
     }
 
-    public static void syncAttainment(PlayerEntity player, ModPath thePath, int attainment) {
-        if (player instanceof ServerPlayerEntity serverPlayer) {
-            PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeInt(attainment);
-
-            switch (thePath) {
-                case KILLING -> ServerPlayNetworking.send(serverPlayer, SYNC_KILLING_ATTAINMENT, buf);
-                case HEAVEN -> ServerPlayNetworking.send(serverPlayer, SYNC_HEAVEN_ATTAINMENT, buf);
-                case EARTH -> ServerPlayNetworking.send(serverPlayer, SYNC_EARTH_ATTAINMENT, buf);
-                case POWER -> ServerPlayNetworking.send(serverPlayer, SYNC_POWER_ATTAINMENT, buf);
-            }
-        }
-    }
-
     public static void syncApertureStatus(PlayerEntity player, boolean v) {
         if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeBoolean(v);
             ServerPlayNetworking.send(serverPlayer, SYNC_APERTURE_STATUS, buf);
+        }
+    }
+
+    public static void syncPathAttainment(PlayerEntity player, ModPath path, int attainment) {
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            PacketByteBuf buf = PacketByteBufs.create();
+            // 将 path 的唯一标识写入（这里用 name()，也可以改为 writeInt(path.ordinal()) 或者 writeString(path.getNameKey())）
+            buf.writeString(path.name());
+            // 再写该路径对应的数值
+            buf.writeInt(attainment);
+            ServerPlayNetworking.send(serverPlayer, SYNC_PATH_ATTAINMENT, buf);
+        }
+    }
+
+    public static void syncPathRealm(PlayerEntity player, ModPath path, ModPathRealm realm) {
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            PacketByteBuf buf = PacketByteBufs.create();
+            // 先写 path 的唯一标识
+            buf.writeString(path.name());
+            // 再写该路径对应的境界的 nameKey
+            buf.writeString(realm.getNameKey());
+            ServerPlayNetworking.send(serverPlayer, SYNC_PATH_REALM, buf);
         }
     }
 
@@ -128,6 +141,15 @@ public class ModMessages {
             });
         });
 
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_SOUL, (client, handler, buf, responseSender) -> {
+            int soul = buf.readInt();
+            client.execute(() -> {
+                if (client.player instanceof ModPlayerImpl playerImpl) {
+                    playerImpl.setSoul(soul);
+                }
+            });
+        });
+
         ClientPlayNetworking.registerGlobalReceiver(SYNC_TALENT, (client, handler, buf, responseSender) -> {
             String talent = buf.readString();
             client.execute(() -> {
@@ -150,7 +172,7 @@ public class ModMessages {
             String physique = buf.readString();
             client.execute(() -> {
                 if (client.player instanceof ModPlayerImpl playerImpl) {
-                    playerImpl.setSpecialPhysique(ModTenExtremePhysique.fromNameKey(physique));
+                    playerImpl.setExtremePhysique(ModTenExtremePhysique.fromNameKey(physique));
                 }
             });
         });
@@ -164,39 +186,27 @@ public class ModMessages {
             });
         });
 
-        // PATH ATTAINMENT
-        ClientPlayNetworking.registerGlobalReceiver(SYNC_HEAVEN_ATTAINMENT, (client, handler, buf, responseSender) -> {
-            int attainment = buf.readInt();
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_PATH_ATTAINMENT, (client, handler, buf, responseSender) -> {
+            // 先读 path 枚举名
+            String pathName = buf.readString();
+            int newAttainment = buf.readInt();
             client.execute(() -> {
                 if (client.player instanceof ModPlayerImpl playerImpl) {
-                    playerImpl.setAttainment(ModPath.HEAVEN, attainment);
+                    // 把字符串转换回枚举
+                    ModPath path = ModPath.valueOf(pathName);
+                    playerImpl.setAttainment(path, newAttainment);
                 }
             });
         });
 
-        ClientPlayNetworking.registerGlobalReceiver(SYNC_POWER_ATTAINMENT, (client, handler, buf, responseSender) -> {
-            int attainment = buf.readInt();
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_PATH_REALM, (client, handler, buf, responseSender) -> {
+            String pathName = buf.readString();
+            String realmKey = buf.readString();
             client.execute(() -> {
                 if (client.player instanceof ModPlayerImpl playerImpl) {
-                    playerImpl.setAttainment(ModPath.POWER, attainment);
-                }
-            });
-        });
-
-        ClientPlayNetworking.registerGlobalReceiver(SYNC_EARTH_ATTAINMENT, (client, handler, buf, responseSender) -> {
-            int attainment = buf.readInt();
-            client.execute(() -> {
-                if (client.player instanceof ModPlayerImpl playerImpl) {
-                    playerImpl.setAttainment(ModPath.EARTH, attainment);
-                }
-            });
-        });
-
-        ClientPlayNetworking.registerGlobalReceiver(SYNC_KILLING_ATTAINMENT, (client, handler, buf, responseSender) -> {
-            int attainment = buf.readInt();
-            client.execute(() -> {
-                if (client.player instanceof ModPlayerImpl playerImpl) {
-                    playerImpl.setAttainment(ModPath.KILLING, attainment);
+                    ModPath path = ModPath.valueOf(pathName);
+                    ModPathRealm realm = ModPathRealm.fromNameKey(realmKey);
+                    playerImpl.setRealm(path, realm);
                 }
             });
         });

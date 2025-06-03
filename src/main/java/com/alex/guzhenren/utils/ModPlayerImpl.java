@@ -1,20 +1,20 @@
-package com.alex.guzhenren.api;
+package com.alex.guzhenren.utils;
 
-import com.alex.guzhenren.api.enums.*;
+import com.alex.guzhenren.utils.enums.*;
 
 public interface ModPlayerImpl {
 
     float getLifespan();
-    void setLifespan(float v);
-    void changeLifespan(float v);
+    void setLifespan(float v); void changeLifespan(float v);
+
+    int getSoul();
+    void setSoul(int v); void changeSoul(int v);
 
     int getMoral();
-    void setMoral(int v);
-    void changeMoral(int v);
+    void setMoral(int v); void changeMoral(int v);
 
     float getCurrentEssence();
-    void setCurrentEssence(float v);
-    void changeCurrentEssence(float v);
+    void setCurrentEssence(float v); void changeCurrentEssence(float v);
 
     int getMaxEssence();
     void setMaxEssence(int v);
@@ -28,13 +28,12 @@ public interface ModPlayerImpl {
     void setTalent(ModGuMasterTalent v);
 
     // ten extreme physique
-    ModTenExtremePhysique getSpecialPhysique();
-    void setSpecialPhysique(ModTenExtremePhysique v);
+    ModTenExtremePhysique getExtremePhysique();
+    void setExtremePhysique(ModTenExtremePhysique v);
 
     // path
     int getAttainment(ModPath path);
-    void setAttainment(ModPath thePath, int theAttainment);
-    void changeAttainment(ModPath thePath, int theAttainment);
+    void setAttainment(ModPath thePath, int theAttainment); void changeAttainment(ModPath thePath, int theAttainment);
 
     // realm
     ModPathRealm getRealm(ModPath thePath);

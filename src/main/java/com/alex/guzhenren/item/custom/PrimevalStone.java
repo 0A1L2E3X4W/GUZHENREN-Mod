@@ -1,6 +1,6 @@
 package com.alex.guzhenren.item.custom;
 
-import com.alex.guzhenren.api.ModPlayerImpl;
+import com.alex.guzhenren.utils.ModPlayerImpl;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

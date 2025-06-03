@@ -1,7 +1,7 @@
 package com.alex.guzhenren.item.custom.gu;
 
-import com.alex.guzhenren.api.ModPlayerImpl;
-import com.alex.guzhenren.api.enums.ModPath;
+import com.alex.guzhenren.utils.ModPlayerImpl;
+import com.alex.guzhenren.utils.enums.ModPath;
 import com.alex.guzhenren.effect.ModEffects;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.effect.StatusEffectInstance;
