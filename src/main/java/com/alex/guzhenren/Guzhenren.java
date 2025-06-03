@@ -1,6 +1,8 @@
 package com.alex.guzhenren;
 
 import com.alex.guzhenren.block.ModBlocks;
+import com.alex.guzhenren.effect.ModEffects;
+import com.alex.guzhenren.effect.ModEvents;
 import com.alex.guzhenren.item.ModItemGroups;
 import com.alex.guzhenren.item.ModItems;
 import com.alex.guzhenren.network.ModNetworking;
@@ -21,6 +23,9 @@ public class Guzhenren implements ModInitializer {
 		ModItems.registerItems();
 		ModItemGroups.registerGroups();
 		ModBlocks.registerModBlocks();
+		ModEffects.registerEffects();
+
+		ModEvents.registerAttackEvent();
 
 		ModWorldGeneration.generationModWorldGen();
 

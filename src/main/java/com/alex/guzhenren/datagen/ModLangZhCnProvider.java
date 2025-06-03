@@ -1,6 +1,7 @@
 package com.alex.guzhenren.datagen;
 
 import com.alex.guzhenren.block.ModBlocks;
+import com.alex.guzhenren.effect.ModEffects;
 import com.alex.guzhenren.item.ModItemGroups;
 import com.alex.guzhenren.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -27,6 +28,9 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItemGroups.GU_MATERIAL_GROUP, "蛊材");
         translationBuilder.add(ModItemGroups.GU_FOOD_GROUP, "食物类");
         translationBuilder.add(ModItemGroups.GU_GROUP, "凡蛊");
+
+        translationBuilder.add(ModEffects.WHITE_BOAR_POWER, "白豕之力");
+        translationBuilder.add(ModEffects.BLACK_BOAR_POWER, "黑豕之力");
 
         generateRankTranslations(translationBuilder);
         generatePathNameTranslations(translationBuilder);

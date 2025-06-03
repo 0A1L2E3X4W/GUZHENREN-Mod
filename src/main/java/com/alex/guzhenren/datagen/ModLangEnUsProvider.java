@@ -1,6 +1,7 @@
 package com.alex.guzhenren.datagen;
 
 import com.alex.guzhenren.block.ModBlocks;
+import com.alex.guzhenren.effect.ModEffects;
 import com.alex.guzhenren.item.ModItemGroups;
 import com.alex.guzhenren.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -27,6 +28,9 @@ public class ModLangEnUsProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItemGroups.GU_MATERIAL_GROUP, "Gu Material");
         translationBuilder.add(ModItemGroups.GU_FOOD_GROUP, "Mod Food");
         translationBuilder.add(ModItemGroups.GU_GROUP, "Mortal Gu");
+
+        translationBuilder.add(ModEffects.WHITE_BOAR_POWER, "White Boar Strength");
+        translationBuilder.add(ModEffects.BLACK_BOAR_POWER, "Black Boar Strength");
 
         generateRankTranslations(translationBuilder);
         generateRealmsTranslations(translationBuilder);

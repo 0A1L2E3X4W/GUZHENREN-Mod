@@ -2,6 +2,7 @@ package com.alex.guzhenren.item.custom.gu;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
 import com.alex.guzhenren.api.enums.ModPath;
+import com.alex.guzhenren.effect.ModEffects;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -29,32 +30,35 @@ public class Gu_BlackBoar_1 extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         ModPlayerImpl modPlayer = (ModPlayerImpl)user;
 
-        if (!world.isClient()) {
+        if (!world.isClient())
 
-            int modifier = modPlayer.getRank().getEssenceModifier();
-            int result = ESSENCE_REQUIRE / modifier;
-
-            if (modPlayer.getCurrentEssence() < -result) {
+            if (!modPlayer.getApertureStatus()) {
                 return TypedActionResult.fail(itemStack);
             }
-
-            modPlayer.changeCurrentEssence(result);
-            modPlayer.changeAttainment(ModPath.POWER, 1);
-            user.getItemCooldownManager().set(this,  4);
-            itemStack.damage(1, user, player -> player.sendToolBreakStatus(hand));
-
-            int count = itemStack.getOrCreateNbt().getInt(USED_COUNT);
-
-            if (count == 19) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, StatusEffectInstance.INFINITE, 2));
-            }
             else {
-                count ++;
-                itemStack.getOrCreateNbt().putInt(USED_COUNT, count);
-            }
+                int modifier = modPlayer.getRank().getEssenceModifier();
+                int result = ESSENCE_REQUIRE / modifier;
 
-            return TypedActionResult.success(itemStack);
-        }
+                if (modPlayer.getCurrentEssence() < -result) {
+                    return TypedActionResult.fail(itemStack);
+                }
+
+                int count = itemStack.getOrCreateNbt().getInt(USED_COUNT);
+
+                if (count >= 19) {
+                    user.addStatusEffect(new StatusEffectInstance(ModEffects.BLACK_BOAR_POWER, StatusEffectInstance.INFINITE, 0));
+                }
+                else {
+                    count ++;
+                    itemStack.getOrCreateNbt().putInt(USED_COUNT, count);
+
+                    modPlayer.changeCurrentEssence(result);
+                    modPlayer.changeAttainment(ModPath.POWER, 1);
+                    user.getItemCooldownManager().set(this,  4);
+                    itemStack.damage(1, user, player -> player.sendToolBreakStatus(hand));
+                }
+                return TypedActionResult.success(itemStack);
+            }
 
         return TypedActionResult.fail(itemStack);
     }

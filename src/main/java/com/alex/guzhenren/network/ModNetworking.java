@@ -1,9 +1,16 @@
 package com.alex.guzhenren.network;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
+import com.alex.guzhenren.api.enums.ModGuMasterRank;
+import com.alex.guzhenren.api.enums.ModGuMasterTalent;
 import com.alex.guzhenren.api.enums.ModPath;
+import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
@@ -44,5 +51,47 @@ public class ModNetworking {
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             // 这里视情况而定是否需要清理或缓存
         });
+    }
+
+    public static void ClientDataInitialize() {
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            PacketByteBuf buf = new PacketByteBuf(io.netty.buffer.Unpooled.buffer());
+            ClientPlayNetworking.send(CHANNEL_REQUEST_DATA, buf);
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(CHANNEL_SEND_DATA,
+                (client, handler, buf, responseSender) -> {
+                    float currentEssence = buf.readFloat();
+                    int maxEssence = buf.readInt();
+
+                    int moral = buf.readInt();
+                    String talent = buf.readString();
+                    String extremePhysique = buf.readString();
+                    String rank = buf.readString();
+                    boolean apertureStatus = buf.readBoolean();
+
+                    int killing = buf.readInt();
+                    int heaven = buf.readInt();
+                    int power = buf.readInt();
+                    int earth = buf.readInt();
+
+                    client.execute(() -> {
+                        PlayerEntity player = MinecraftClient.getInstance().player;
+                        if (player instanceof ModPlayerImpl mod) {
+                            mod.setMoral(moral);
+                            mod.setTalent(ModGuMasterTalent.fromNameKey(talent));
+                            mod.setSpecialPhysique(ModTenExtremePhysique.fromNameKey(extremePhysique));
+                            mod.setRank(ModGuMasterRank.fromNameKey(rank));
+                            mod.setMaxEssence(maxEssence);
+                            mod.setCurrentEssence(currentEssence);
+                            mod.setApertureStatus(apertureStatus);
+
+                            mod.setAttainment(ModPath.KILLING, killing);
+                            mod.setAttainment(ModPath.HEAVEN, heaven);
+                            mod.setAttainment(ModPath.POWER, power);
+                            mod.setAttainment(ModPath.EARTH, earth);
+                        }
+                    });
+                });
     }
 }
