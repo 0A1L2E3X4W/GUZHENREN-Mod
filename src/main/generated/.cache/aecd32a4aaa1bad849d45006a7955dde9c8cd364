@@ -1,11 +1,13 @@
-// 1.20.1	2025-06-03T00:28:26.5017933	guzhenren/Model Definitions
+// 1.20.1	2025-06-03T12:50:21.9644672	guzhenren/Model Definitions
 dadc94c9b217eb7b60b05a634584275ffae13a32 assets\guzhenren\blockstates\primeval_stone_ore.json
-065c5368abee84d6953c43b2ae183bcda5e2a6f4 assets\guzhenren\models\item\hope_gu.json
+b78b22ca8d99a680ecf35c1b33383b8a8d0b55bc assets\guzhenren\models\item\flower_boar_gu1.json
 43acac1f0ca97257f3de7fc205217af5c6c4ae7c assets\guzhenren\models\block\primeval_stone_block.json
-fa38a7817ef39e15b293186154fa9dede0af2a3d assets\guzhenren\models\item\liquor.json
+6a9019ddbd58899ab01e98b5228fc97c9a3bf289 assets\guzhenren\models\item\white_boar_gu1.json
 2e2c74c6d7cde0f712a5e837aed096e657c60625 assets\guzhenren\models\item\primeval_stone_ore.json
-dc4fdb0c5ee13f24496bbdbc601475866fab4c23 assets\guzhenren\models\item\primeval_stone_block.json
 f7fddb5d87a1adf726541d2350be37399d7dbd61 assets\guzhenren\models\block\primeval_stone_ore.json
-b521511845d10485b0364dd8e2fae51d01d43fa5 assets\guzhenren\models\item\huashi_gu1.json
 f8bf9e748a34cd148971e9aef7434717cd632902 assets\guzhenren\models\item\primeval_stone.json
+065c5368abee84d6953c43b2ae183bcda5e2a6f4 assets\guzhenren\models\item\hope_gu.json
+fa38a7817ef39e15b293186154fa9dede0af2a3d assets\guzhenren\models\item\liquor.json
+dc4fdb0c5ee13f24496bbdbc601475866fab4c23 assets\guzhenren\models\item\primeval_stone_block.json
+01a9911482d566c5a773be39fa6cc6ec4572bb88 assets\guzhenren\models\item\black_boar_gu1.json
 95a1cf1abdd495bf7d5a89525c0ab129670544a0 assets\guzhenren\blockstates\primeval_stone_block.json

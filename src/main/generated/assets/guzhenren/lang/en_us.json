@@ -41,10 +41,12 @@
   "guzhenren.title.quasi_master": "Quasi-Master",
   "guzhenren.title.quasi_supreme_grandmaster": "Quasi-Supreme-GrandMaster",
   "guzhenren.title.supreme_grandmaster": "Supreme-GrandMaster",
+  "item.guzhenren.black_boar_gu1": "Black Boar Gu - Rank 1",
+  "item.guzhenren.flower_boar_gu1": "Flower Boar Gu - Rank 1",
   "item.guzhenren.hope_gu": "Hope Gu",
-  "item.guzhenren.huashi_gu1": "Hua Zhi Gu - Rank 1",
   "item.guzhenren.liquor": "Liquor",
   "item.guzhenren.primeval_stone": "Primeval Stone",
+  "item.guzhenren.white_boar_gu1": "White Boar Gu - Rank 1",
   "itemGroup.gu_food_group": "Mod Food",
   "itemGroup.gu_group": "Mortal Gu",
   "itemGroup.gu_material_group": "Gu Material"

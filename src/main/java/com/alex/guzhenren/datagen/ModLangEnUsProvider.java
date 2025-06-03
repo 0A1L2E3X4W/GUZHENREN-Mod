@@ -16,7 +16,9 @@ public class ModLangEnUsProvider extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add(ModItems.PRIMEVAL_STONE, "Primeval Stone");
         translationBuilder.add(ModItems.LIQUOR, "Liquor");
-        translationBuilder.add(ModItems.HUASHI_GU_1, "Hua Zhi Gu - Rank 1");
+        translationBuilder.add(ModItems.FLOWER_BOAR_GU_1, "Flower Boar Gu - Rank 1");
+        translationBuilder.add(ModItems.WHITE_BOAR_GU_1, "White Boar Gu - Rank 1");
+        translationBuilder.add(ModItems.BLACK_BOAR_GU_1, "Black Boar Gu - Rank 1");
         translationBuilder.add(ModItems.HOPE_GU, "Hope Gu");
 
         translationBuilder.add(ModBlocks.PRIMEVAL_STONE_BLOCK, "Primeval Stone Block");

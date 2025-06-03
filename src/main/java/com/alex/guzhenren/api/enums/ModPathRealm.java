@@ -13,4 +13,13 @@ public enum ModPathRealm {
     private final String nameKey;
     ModPathRealm(String key) { this.nameKey = key; }
     public String getNameKey() { return nameKey; }
+
+    public static ModPathRealm fromNameKey(String key) {
+        for (ModPathRealm realm : values()) {
+            if (realm.nameKey.equals(key)) {
+                return realm;
+            }
+        }
+        return ORDINARY;
+    }
 }

@@ -49,10 +49,12 @@ public class ModItemGroups {
                 Registries.ITEM_GROUP, GU_GROUP,
                 ItemGroup.create(ItemGroup.Row.TOP, 9)
                         .displayName(Text.translatable("itemGroup.gu_group"))
-                        .icon(() -> new ItemStack(ModItems.HUASHI_GU_1))
+                        .icon(() -> new ItemStack(ModItems.FLOWER_BOAR_GU_1))
                         .entries((displayContext, entries) -> {
                             entries.add(ModItems.HOPE_GU);
-                            entries.add(ModItems.HUASHI_GU_1);
+                            entries.add(ModItems.FLOWER_BOAR_GU_1);
+                            entries.add(ModItems.WHITE_BOAR_GU_1);
+                            entries.add(ModItems.BLACK_BOAR_GU_1);
                         }).build());
     }
 }

@@ -2,8 +2,10 @@ package com.alex.guzhenren.item;
 
 import com.alex.guzhenren.Guzhenren;
 import com.alex.guzhenren.item.custom.PrimevalStone;
-import com.alex.guzhenren.item.custom.gu.Hope_Gu;
-import com.alex.guzhenren.item.custom.gu.HuaShi_Gu_1;
+import com.alex.guzhenren.item.custom.gu.Gu_BlackBoar_1;
+import com.alex.guzhenren.item.custom.gu.Gu_Hope;
+import com.alex.guzhenren.item.custom.gu.Gu_FlowerBoar_1;
+import com.alex.guzhenren.item.custom.gu.Gu_WhiteBoar_1;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -20,9 +22,13 @@ public class ModItems {
     public static final Item LIQUOR = registerItem("liquor", new Item(new Item.Settings().food(ModFoodComponents.LIQUOR)));
 
     // GU
-    public static final Item HOPE_GU = registerItem("hope_gu", new Hope_Gu(new Item.Settings()
+    public static final Item HOPE_GU = registerItem("hope_gu", new Gu_Hope(new Item.Settings()
             .maxCount(64)));
-    public static final Item HUASHI_GU_1 = registerItem("huashi_gu1", new HuaShi_Gu_1(new Item.Settings()
+    public static final Item FLOWER_BOAR_GU_1 = registerItem("flower_boar_gu1", new Gu_FlowerBoar_1(new Item.Settings()
+            .maxCount(1).maxDamage(32)));
+    public static final Item WHITE_BOAR_GU_1 = registerItem("white_boar_gu1", new Gu_WhiteBoar_1(new Item.Settings()
+            .maxCount(1).maxDamage(32)));
+    public static final Item BLACK_BOAR_GU_1 = registerItem("black_boar_gu1", new Gu_BlackBoar_1(new Item.Settings()
             .maxCount(1).maxDamage(32)));
 
     /*MOD METHODS*/

@@ -3,6 +3,7 @@ package com.alex.guzhenren.network;
 import com.alex.guzhenren.api.ModPlayerImpl;
 import com.alex.guzhenren.api.enums.ModGuMasterTalent;
 import com.alex.guzhenren.api.enums.ModGuMasterRank;
+import com.alex.guzhenren.api.enums.ModPath;
 import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -22,6 +23,11 @@ public class ModMessages {
     public static final Identifier SYNC_TALENT = new Identifier("guzhenren", "sync_talent");
     public static final Identifier SYNC_EXTREME_PHYSIQUE = new Identifier("guzhenren", "sync_extreme_physique");
     public static final Identifier SYNC_APERTURE_STATUS = new Identifier("guzhenren", "sync_aperture_status");
+
+    public static final Identifier SYNC_KILLING_ATTAINMENT = new Identifier("guzhenren", "sync_killing_dao");
+    public static final Identifier SYNC_HEAVEN_ATTAINMENT = new Identifier("guzhenren", "sync_heaven_dao");
+    public static final Identifier SYNC_POWER_ATTAINMENT = new Identifier("guzhenren", "sync_power_dao");
+    public static final Identifier SYNC_EARTH_ATTAINMENT = new Identifier("guzhenren", "sync_earth_dao");
 
     public static void syncCurrentEssence(PlayerEntity player, float v) {
         if (player instanceof ServerPlayerEntity serverPlayer) { // 安全类型检查
@@ -68,6 +74,20 @@ public class ModMessages {
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeString(v.getNameKey());
             ServerPlayNetworking.send(serverPlayer, SYNC_EXTREME_PHYSIQUE, buf);
+        }
+    }
+
+    public static void syncAttainment(PlayerEntity player, ModPath thePath, int attainment) {
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(attainment);
+
+            switch (thePath) {
+                case KILLING -> ServerPlayNetworking.send(serverPlayer, SYNC_KILLING_ATTAINMENT, buf);
+                case HEAVEN -> ServerPlayNetworking.send(serverPlayer, SYNC_HEAVEN_ATTAINMENT, buf);
+                case EARTH -> ServerPlayNetworking.send(serverPlayer, SYNC_EARTH_ATTAINMENT, buf);
+                case POWER -> ServerPlayNetworking.send(serverPlayer, SYNC_POWER_ATTAINMENT, buf);
+            }
         }
     }
 
@@ -140,6 +160,43 @@ public class ModMessages {
             client.execute(() -> {
                 if (client.player instanceof ModPlayerImpl playerImpl) {
                     playerImpl.setApertureStatus(status);
+                }
+            });
+        });
+
+        // PATH ATTAINMENT
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_HEAVEN_ATTAINMENT, (client, handler, buf, responseSender) -> {
+            int attainment = buf.readInt();
+            client.execute(() -> {
+                if (client.player instanceof ModPlayerImpl playerImpl) {
+                    playerImpl.setAttainment(ModPath.HEAVEN, attainment);
+                }
+            });
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_POWER_ATTAINMENT, (client, handler, buf, responseSender) -> {
+            int attainment = buf.readInt();
+            client.execute(() -> {
+                if (client.player instanceof ModPlayerImpl playerImpl) {
+                    playerImpl.setAttainment(ModPath.POWER, attainment);
+                }
+            });
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_EARTH_ATTAINMENT, (client, handler, buf, responseSender) -> {
+            int attainment = buf.readInt();
+            client.execute(() -> {
+                if (client.player instanceof ModPlayerImpl playerImpl) {
+                    playerImpl.setAttainment(ModPath.EARTH, attainment);
+                }
+            });
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_KILLING_ATTAINMENT, (client, handler, buf, responseSender) -> {
+            int attainment = buf.readInt();
+            client.execute(() -> {
+                if (client.player instanceof ModPlayerImpl playerImpl) {
+                    playerImpl.setAttainment(ModPath.KILLING, attainment);
                 }
             });
         });

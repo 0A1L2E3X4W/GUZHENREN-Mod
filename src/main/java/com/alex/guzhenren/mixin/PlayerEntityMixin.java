@@ -209,12 +209,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements ModPlaye
     @Override
     public void setAttainment(ModPath thePath, int theAttainment) {
         this.attainments.put(thePath, theAttainment);
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncAttainment((PlayerEntity) (Object) this, thePath, theAttainment);
+        }
     }
 
     @Override
     public void changeAttainment(ModPath thePath, int theAttainment) {
         int result = getAttainment(thePath) + theAttainment;
         this.attainments.put(thePath, result);
+
+        if (!this.getWorld().isClient()) {
+            ModMessages.syncAttainment((PlayerEntity) (Object) this, thePath, result);
+        }
     }
 
     @Override

@@ -16,7 +16,9 @@ public class ModLangZhCnProvider extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add(ModItems.PRIMEVAL_STONE, "元石");
         translationBuilder.add(ModItems.LIQUOR, "酒");
-        translationBuilder.add(ModItems.HUASHI_GU_1, "一转花豕蛊");
+        translationBuilder.add(ModItems.FLOWER_BOAR_GU_1, "一转花豕蛊");
+        translationBuilder.add(ModItems.WHITE_BOAR_GU_1, "一转白豕蛊");
+        translationBuilder.add(ModItems.BLACK_BOAR_GU_1, "一转黑豕蛊");
         translationBuilder.add(ModItems.HOPE_GU, "希望蛊");
 
         translationBuilder.add(ModBlocks.PRIMEVAL_STONE_BLOCK, "原石块");

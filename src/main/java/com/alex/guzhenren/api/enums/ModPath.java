@@ -33,7 +33,7 @@ public enum ModPath {
     SOUND("guzhenren.path.sound"),
     THEFT("guzhenren.path.theft"),
     TRANSFORMATION("guzhenren.path.transformation"),
-    WEAPON("guzhenren.path.weapon"),
+    BLADE("guzhenren.path.blade"),
     WISDOM("guzhenren.path.wisdom"),
 
     BLOOD("guzhenren.path.blood"),

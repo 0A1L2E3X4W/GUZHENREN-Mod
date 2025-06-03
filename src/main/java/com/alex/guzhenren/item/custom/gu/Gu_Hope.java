@@ -13,9 +13,9 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class Hope_Gu extends Item {
+public class Gu_Hope extends Item {
 
-    public Hope_Gu(Settings settings) {
+    public Gu_Hope(Settings settings) {
         super(settings);
     }
 

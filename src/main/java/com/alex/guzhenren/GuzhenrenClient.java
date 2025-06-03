@@ -3,6 +3,7 @@ package com.alex.guzhenren;
 import com.alex.guzhenren.api.ModPlayerImpl;
 import com.alex.guzhenren.api.enums.ModGuMasterTalent;
 import com.alex.guzhenren.api.enums.ModGuMasterRank;
+import com.alex.guzhenren.api.enums.ModPath;
 import com.alex.guzhenren.api.enums.ModTenExtremePhysique;
 import com.alex.guzhenren.network.ModMessages;
 import com.alex.guzhenren.network.ModNetworking;
@@ -39,6 +40,11 @@ public class GuzhenrenClient implements ClientModInitializer {
             String rank = buf.readString();
             boolean apertureStatus = buf.readBoolean();
 
+            int killing = buf.readInt();
+            int heaven = buf.readInt();
+            int power = buf.readInt();
+            int earth = buf.readInt();
+
             client.execute(() -> {
                 PlayerEntity player = MinecraftClient.getInstance().player;
                 if (player instanceof ModPlayerImpl mod) {
@@ -49,6 +55,11 @@ public class GuzhenrenClient implements ClientModInitializer {
                     mod.setMaxEssence(maxEssence);
                     mod.setCurrentEssence(currentEssence);
                     mod.setApertureStatus(apertureStatus);
+
+                    mod.setAttainment(ModPath.KILLING, killing);
+                    mod.setAttainment(ModPath.HEAVEN, heaven);
+                    mod.setAttainment(ModPath.POWER, power);
+                    mod.setAttainment(ModPath.EARTH, earth);
                 }
             });
         });

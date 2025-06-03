@@ -1,6 +1,7 @@
 package com.alex.guzhenren.network;
 
 import com.alex.guzhenren.api.ModPlayerImpl;
+import com.alex.guzhenren.api.enums.ModPath;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
@@ -28,6 +29,11 @@ public class ModNetworking {
                     resp.writeString(modPlayer.getRank().getNameKey());
 
                     resp.writeBoolean(modPlayer.getApertureStatus());
+
+                    resp.writeInt(modPlayer.getAttainment(ModPath.KILLING));
+                    resp.writeInt(modPlayer.getAttainment(ModPath.HEAVEN));
+                    resp.writeInt(modPlayer.getAttainment(ModPath.POWER));
+                    resp.writeInt(modPlayer.getAttainment(ModPath.EARTH));
 
                     // 发送回客户端
                     responseSender.sendPacket(CHANNEL_SEND_DATA, resp);
